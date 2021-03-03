@@ -23,10 +23,10 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-  name: PropTypes.string,
-  type: PropTypes.string,
+  placeholder: '',
+  onChange: () => {},
+  name: '',
+  type: '',
 };
 
 export default Input;
