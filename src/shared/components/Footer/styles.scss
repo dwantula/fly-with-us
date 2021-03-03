@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  height: 10vh;
+  border-bottom: 2px solid gray;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  background-color: gray;
+}
+
+.footer__text {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 5px;
+  color: white;
+}
