@@ -11,9 +11,9 @@ import './styles.scss';
 function Main() {
   return (
     <Switch>
-      <Route path="/Home" exact component={Home} />
-      <Route path="/MyBooking" component={MyBooking} />
-      <Route path="/TrackingFlights" component={TrackingFlights} />
+      <Route path="/home" exact component={Home} />
+      <Route path="/myBooking" component={MyBooking} />
+      <Route path="/trackingFlights" component={TrackingFlights} />
       <Route component={() => <h3>Strona nie istnieje</h3>} />
     </Switch>
   );

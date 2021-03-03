@@ -1,7 +1,9 @@
+@import 'shared/styles/colors.scss';
+
 .main {
   display: flex;
   height: 70vh;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid $gray;
   justify-content: center;
   position: relative;
 }
@@ -17,7 +19,7 @@
   position: absolute;
   justify-content: center;
   text-align: center;
-  color:whitesmoke;
+  color: $whitesmoke;
   letter-spacing: 2px;
 }
 
@@ -41,16 +43,16 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: lightskyblue;
+  background-color: $lightskyblue;
   align-items: center;
   padding-left: 5px;
   font-size: 1.6rem;
-  color: white;
+  color: $white;
   border: none;
   cursor: pointer;
   outline: 0;
   &:hover {
-    background-color: red;
-    color: black;
+    background-color: $red;
+    color: $black;
   }
 }

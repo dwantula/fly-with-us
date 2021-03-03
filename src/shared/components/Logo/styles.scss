@@ -1,3 +1,5 @@
+@import 'shared/styles/colors.scss';
+
 .logo {
   display: flex;
   flex-direction: column;
@@ -8,7 +10,7 @@
 
 .logo__text {
   display: flex;
-  color: red;
+  color: $red;
   font-size: 1.6rem;
   letter-spacing: 2px;
   padding-bottom: 20px;

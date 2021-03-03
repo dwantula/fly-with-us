@@ -1,3 +1,5 @@
+@import 'shared/styles/colors.scss';
+
 .navigation {
   display: flex;
   height: 50px;
@@ -26,8 +28,7 @@
 }
 
 .active {
-  border: 2px solid blue;
+  border: 2px solid $blue;
   height: 30px;
-
   border-radius: 5px;
 }
