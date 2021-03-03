@@ -1,11 +1,19 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import Footer from 'shared/components/Footer/Footer';
+import Header from 'shared/components/Header/Header';
+import Main from 'shared/components/Main/Main';
+
 import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <p>fly-with-my</p>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Main />
+      <Footer />
+    </BrowserRouter>
   );
 }
 

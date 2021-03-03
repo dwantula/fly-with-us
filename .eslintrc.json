@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node":true
     },
     "extends": [
         "airbnb",
@@ -12,7 +13,8 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "moduleDirectory": ["node_modules", "src/"]
+                "extensions": [".js", ".jsx"],
+                "moduleDirectory": ["node_modules", "src"]
             }
         }
     },
