@@ -29,10 +29,6 @@ function Home() {
     setCountriesChoose(countrySearch);
   }
 
-  console.log(countriesChoose);
-
-  console.log(findCountries());
-
   return (
     <div className="main">
       <img className="main__image" src="images/main.jpg" alt="view" />
