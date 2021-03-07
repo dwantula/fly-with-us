@@ -9,8 +9,8 @@ import './styles.scss';
 
 function Home() {
   const countries = useSelector((state) => state.countries);
-  const [countriesSearch, setCountriesSearch] = useState('Andorra');
-  const [countriesChoose, setCountriesChoose] = useState('');
+  const [countrySearch, setCountrySearch] = useState('');
+  const [countryChoose, setCountryChoose] = useState('');
 
   const dispatch = useDispatch();
 
@@ -18,15 +18,16 @@ function Home() {
     dispatch(getCountriesAction());
   }, [dispatch]);
 
-  function handleCountriesChange(event) {
-    setCountriesSearch(event.target.value);
+  function findCountries() {
+    const countryChoice = countries.countries.filter((country) =>
+      country.Name.includes(countrySearch),
+    );
+    setCountryChoose(countryChoice);
   }
 
-  function findCountries() {
-    const countrySearch = countries.countries.filter((country) =>
-      country.Name.includes(countriesSearch),
-    );
-    setCountriesChoose(countrySearch);
+  function handleCountriesChange(event) {
+    setCountrySearch(event.target.value);
+    findCountries(event.target.value);
   }
 
   return (
@@ -34,11 +35,25 @@ function Home() {
       <img className="main__image" src="images/main.jpg" alt="view" />
       <h1 className="main__title">Let the journey begin</h1>
       <div className="main__search">
-        <Input
-          onChange={handleCountriesChange}
-          value={countriesSearch}
-          placeholder="Search countries"
-        />
+        <form className="main__dropdown">
+          <Input
+            onChange={handleCountriesChange}
+            value={countrySearch}
+            placeholder="Search countries"
+            name="country"
+            list="country"
+            onBlur={() => setCountryChoose(countrySearch)}
+          />
+          <datalist className="form-control" id="country">
+            {countries.countries.map((country) => (
+              <option
+                key={country.Code}
+                value={country.Name}
+                label={country.Name}
+              />
+            ))}
+          </datalist>
+        </form>
         <Input />
         <Input />
         <Input />

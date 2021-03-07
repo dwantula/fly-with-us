@@ -56,3 +56,15 @@
     color: $black;
   }
 }
+
+.main__countries {
+  display: flex;
+  position: absolute;
+}
+
+.main__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+}
