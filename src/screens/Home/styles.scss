@@ -57,14 +57,30 @@
   }
 }
 
-.main__countries {
+// .main__countries {
+//   display: flex;
+//   position: absolute;
+// }
+
+// .main__list {
+//   display: flex;
+//   margin: 0;
+//   padding: 0;
+
+// }
+
+.main__countries-list {
   display: flex;
-  position: absolute;
+  background-color: red;
+  width: 170px;
+  height: 250px;
+  overflow: scroll;
+  list-style: none;
 }
-
-.main__list {
-  display: flex;
-  margin: 0;
-  padding: 0;
-
+.main__list-country {
+  padding-left: 10px;
+}
+.main__country{
+  list-style: none;
+  cursor: pointer;
 }

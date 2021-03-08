@@ -8,9 +8,11 @@ import Input from 'shared/components/Input/Input';
 import './styles.scss';
 
 function Home() {
-  const countries = useSelector((state) => state.countries);
-  const [countrySearch, setCountrySearch] = useState('');
-  const [countryChoose, setCountryChoose] = useState('');
+  const { countries } = useSelector((state) => state.countries);
+  const [countryFilter, setCountryFilter] = useState([]);
+  const [countriesFilltered, setCountriesFilltered] = useState([]);
+  const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
+  const [chosenCountry, setChosenCountry] = useState('');
 
   const dispatch = useDispatch();
 
@@ -18,42 +20,57 @@ function Home() {
     dispatch(getCountriesAction());
   }, [dispatch]);
 
-  function findCountries() {
-    const countryChoice = countries.countries.filter((country) =>
-      country.Name.includes(countrySearch),
+  function filterCountries() {
+    const countriesFiltered = countries.filter((country) =>
+      country.Name.includes(countryFilter),
     );
-    setCountryChoose(countryChoice);
+    setCountriesFilltered(countriesFiltered);
   }
 
   function handleCountriesChange(event) {
-    setCountrySearch(event.target.value);
-    findCountries(event.target.value);
+    setCountryFilter(event.target.value);
+    filterCountries(event.target.value);
   }
+
+  function toggleCountriesList() {
+    setCountriesListExpanded((prevState) => !prevState);
+  }
+
+  console.log(chosenCountry);
 
   return (
     <div className="main">
       <img className="main__image" src="images/main.jpg" alt="view" />
       <h1 className="main__title">Let the journey begin</h1>
       <div className="main__search">
-        <form className="main__dropdown">
+        <div className="main__countries">
           <Input
             onChange={handleCountriesChange}
-            value={countrySearch}
+            value={countryFilter}
             placeholder="Search countries"
             name="country"
-            list="country"
-            onBlur={() => setCountryChoose(countrySearch)}
+            onFocus={toggleCountriesList}
+            onBlur={toggleCountriesList}
+            type="text"
           />
-          <datalist className="form-control" id="country">
-            {countries.countries.map((country) => (
-              <option
-                key={country.Code}
-                value={country.Name}
-                label={country.Name}
-              />
-            ))}
-          </datalist>
-        </form>
+          {isCountriesListExpanded ? (
+            <div className="main__countries-list">
+              <ul className="main__list-country">
+                {countriesFilltered.map(({ Name, Code }) => (
+                  <li className="main__country" key={Code}>
+                    <button
+                      type="button"
+                      onClick={() => setChosenCountry(Name)}
+                    >
+                      {Name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div>{chosenCountry}</div>
+            </div>
+          ) : null}
+        </div>
         <Input />
         <Input />
         <Input />

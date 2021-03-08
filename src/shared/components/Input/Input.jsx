@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-function Input({ onBlur, list, name, onChange, placeholder, type }) {
+function Input({ onBlur, onFocus, name, onChange, placeholder, type }) {
   return (
     <input
       className="input"
@@ -11,8 +11,9 @@ function Input({ onBlur, list, name, onChange, placeholder, type }) {
       onChange={onChange}
       placeholder={placeholder}
       type={type}
-      list={list}
+      onFocus={onFocus}
       onBlur={onBlur}
+      autoComplete="off"
     />
   );
 }
@@ -22,8 +23,8 @@ Input.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   type: PropTypes.string,
-  list: PropTypes.string,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 
 Input.defaultProps = {
@@ -31,8 +32,8 @@ Input.defaultProps = {
   onChange: () => {},
   name: '',
   type: '',
-  list: '',
   onBlur: () => {},
+  onFocus: () => {},
 };
 
 export default Input;
