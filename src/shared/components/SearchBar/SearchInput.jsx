@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 
@@ -7,93 +7,80 @@ import Input from '../Input/Input';
 
 import './styles.scss';
 
-function SearchInput({
-  setCountryFilter,
-  itemFilter,
-  options,
-  setCountriesFilltered,
-  itemsFilter,
-  setChosenCountry,
-}) {
+function SearchInput({ items, setChosenItem }) {
+  const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
+  const [filteredItems, setFilteredItems] = useState([]);
 
-  function filterItems() {
-    const itemsFiltered = options.filter((option) =>
-      option.Name.toLowerCase().includes(itemFilter.toLowerCase()),
-    );
-    setCountriesFilltered(itemsFiltered);
-  }
+  const filterItems = useMemo(
+    () =>
+      debounce((items, filterPhrase) => {
+        const itemsFiltered = items.filter(({ Name: name }) =>
+          name.toLowerCase().includes(filterPhrase.toLowerCase()),
+        );
+        setFilteredItems(itemsFiltered);
+      }, 300),
+    [],
+  );
 
-  function handleInputChange(event) {
-    const { value } = event.target;
-    setCountryFilter(value);
-    const handleChangeDebounce = debounce(() => filterItems(value), 1000);
-    handleChangeDebounce();
-  }
+  const handleInputChange = (event) => {
+    const filterPhrase = event.target.value;
+    setInputValue(filterPhrase);
+    filterItems(items, filterPhrase);
+  };
 
   function toggleCountriesList() {
     setCountriesListExpanded((prevState) => !prevState);
   }
 
   function onItemsSelect(name) {
-    setChosenCountry(name);
-    setCountryFilter(name);
+    setInputValue(name);
+    setChosenItem(name);
     toggleCountriesList();
   }
+
   return (
-    <div className="main__countries">
+    <div className="search-input">
       <Input
         onChange={handleInputChange}
-        value={itemFilter}
+        value={inputValue}
         placeholder="Search countries"
         name="country"
         onFocus={toggleCountriesList}
         type="text"
-        className="main__input"
+        className="search-input__input"
       />
-      {isCountriesListExpanded ? (
-        <div className="main__countries-list">
-          <ul className="main__list-country">
-            {itemsFilter.map(({ Name, Code }) => (
-              <li className="main__country" key={Code}>
+      <div className="search-input__list-items">
+        {isCountriesListExpanded ? (
+          <ul className="search-input__list">
+            {filteredItems.map(({ Name: name, Code: code }) => (
+              <li className="search-input__item" key={code}>
                 <Button
-                  className="main__country-button"
+                  className="search-input__item-button"
                   type="button"
-                  onClick={() => onItemsSelect(Name)}
-                  text={Name}
+                  onClick={() => onItemsSelect(name)}
+                  text={name}
                 />
               </li>
             ))}
           </ul>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 }
 SearchInput.propTypes = {
-  itemFilter: PropTypes.string,
-  setCountriesFilltered: PropTypes.func,
-  setChosenCountry: PropTypes.func,
-  setCountryFilter: PropTypes.func,
-  itemsFilter: PropTypes.arrayOf(
+  setChosenItem: PropTypes.func,
+  items: PropTypes.arrayOf(
     PropTypes.shape({
-      countries: PropTypes.string,
-    }),
-  ),
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      countries: PropTypes.string,
+      Name: PropTypes.string,
     }),
   ),
 };
 
 SearchInput.defaultProps = {
-  setCountriesFilltered: () => {},
-  options: [],
-  itemFilter: '',
-  setCountryFilter: () => {},
-  itemsFilter: [],
-  setChosenCountry: () => {},
+  setChosenItem: () => {},
+  items: [],
 };
 
 export default SearchInput;

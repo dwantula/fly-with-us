@@ -11,7 +11,6 @@
 
 .navigation__list {
   display: flex;
-  justify-content: space-between;
   list-style: none;
 }
 
@@ -24,11 +23,9 @@
 .navigation__link-text {
   display: flex;
   text-decoration: none;
- 
+  color: $gray;
 }
 
 .active {
-  border: 2px solid $blue;
-  height: 30px;
-  border-radius: 5px;
+  color:$green;
 }
