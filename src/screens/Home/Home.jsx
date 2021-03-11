@@ -20,7 +20,6 @@ function Home() {
 
   return (
     <div className="main">
-      <img className="main__image" src="images/main.jpg" alt="view" />
       <div className="main__title">
         <h1 className="main__title-text">Let the journey begin</h1>
       </div>
