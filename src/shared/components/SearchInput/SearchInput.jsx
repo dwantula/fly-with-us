@@ -15,7 +15,7 @@ function SearchInput({ items, setChosenItem }) {
   const filterItems = useMemo(
     () =>
       debounce((items, filterPhrase) => {
-        const itemsFiltered = items.filter(({ Name: name }) =>
+        const itemsFiltered = items.filter(({ name }) =>
           name.toLowerCase().includes(filterPhrase.toLowerCase()),
         );
         setFilteredItems(itemsFiltered);
@@ -53,7 +53,7 @@ function SearchInput({ items, setChosenItem }) {
       <div className="search-input__list-items">
         {isCountriesListExpanded ? (
           <ul className="search-input__list">
-            {filteredItems.map(({ Name: name, Code: code }) => (
+            {filteredItems.map(({ name, code }) => (
               <li className="search-input__item" key={code}>
                 <Button
                   className="search-input__item-button"

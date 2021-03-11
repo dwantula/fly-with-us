@@ -12,12 +12,13 @@
 .navigation__list {
   display: flex;
   list-style: none;
+  padding: 0;
 }
 
 .navigation__link {
   display: flex;
   justify-content: space-between;
-  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .navigation__link-text {

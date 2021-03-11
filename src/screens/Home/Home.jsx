@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCountriesAction } from 'shared/store/countires/actions';
 
 import Button from 'shared/components/Button/Button';
-import SearchInput from 'shared/components/SearchBar/SearchInput';
+import SearchInput from 'shared/components/SearchInput/SearchInput';
 
 import './styles.scss';
 

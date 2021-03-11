@@ -28,7 +28,7 @@
   justify-content: center;
   overflow: scroll;
   list-style: none;
-  background-color: whitesmoke;
+  background-color: $whitesmoke;
 }
 
 .search-input__list {
@@ -49,13 +49,13 @@
   font-size: 13px;
   cursor: pointer;
   text-align: center;
-  background-color: white;
+  background-color: $white;
   border: none;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid $gray;
   align-items: center;
   justify-content: center;
   &:hover {
-    background-color: lightgray;
+    background-color: $lightGray;
 
   }
 }
