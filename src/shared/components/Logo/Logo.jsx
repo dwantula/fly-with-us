@@ -1,6 +1,6 @@
 import React from 'react';
 
-import plane from '../images/plane.png';
+import plane from 'assets/images/plane.png';
 
 import './styles.scss';
 

@@ -5,7 +5,7 @@
   height: 70vh;
   border-bottom: 2px solid $gray;
   flex-direction: column;
-  background-image: url("../../shared/components/images/main.jpg");
+  background-image: url("../../assets/images/main.jpg");
   background-size: 100% 100%;
 }
 
@@ -21,10 +21,11 @@
 }
 
 .main__search {
-  display: block;
+  display: fixed;
+  height: 30vh;
+  padding: 100px;
   align-items: center;
   align-self: center;
-  padding: 100px;
 }
 
 .main__button {
