@@ -1,0 +1,61 @@
+@import 'shared/styles/colors.scss';
+
+.search-input {
+  display: flex;
+  flex-direction: column;
+  max-height: 290px;
+  width: 170px;
+}
+
+.search-input__input {
+  display: flex;
+  height: 40px;
+  width: 170px;
+  border: 2px solid $green;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  &:focus {
+    background-color: $whitesmoke;
+  }
+}
+
+.search-input__list-items {
+  display: flex;
+  max-width: 170px;
+  max-height: 230px;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+  list-style: none;
+  background-color: $whitesmoke;
+}
+
+.search-input__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1;
+}
+
+.search-input__item-button {
+  display: flex;
+  width: 170px;
+  height: 40px;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  background-color: $white;
+  border: none;
+  border-bottom: 1px solid $gray;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: $lightGray;
+
+  }
+}

@@ -11,24 +11,22 @@
 
 .navigation__list {
   display: flex;
-  justify-content: space-between;
   list-style: none;
+  padding: 0;
 }
 
 .navigation__link {
   display: flex;
   justify-content: space-between;
-  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .navigation__link-text {
   display: flex;
   text-decoration: none;
- 
+  color: $gray;
 }
 
 .active {
-  border: 2px solid $blue;
-  height: 30px;
-  border-radius: 5px;
+  color:$green;
 }

@@ -4,41 +4,37 @@
   display: flex;
   height: 70vh;
   border-bottom: 2px solid $gray;
-  justify-content: center;
-  position: relative;
+  flex-direction: column;
+  background-image: url("../../assets/images/main.jpg");
+  background-size: 100% 100%;
 }
 
-.main__image {
+.mian__title-text {
   display: flex;
-  width: 100%;
-  opacity: 0.8;
 }
 
 .main__title {
   display: flex;
-  position: absolute;
-  justify-content: center;
-  text-align: center;
   color: $whitesmoke;
   letter-spacing: 2px;
+  align-self: center;
 }
 
 .main__search {
-  display: flex;
-  position: absolute;
-  justify-content: center;
+  display: fixed;
+  height: 30vh;
+  padding: 100px;
   align-items: center;
-  padding-top: 30vh;
-}
-
-.main__search-column {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  padding-top: 40vh;
+  align-self: center;
 }
 
 .main__button {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.main__button-search {
   display: flex;
   width: 100px;
   height: 100px;
