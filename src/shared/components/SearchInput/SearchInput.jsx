@@ -7,8 +7,15 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 
 import './styles.scss';
+import Spinner from '../Spinner/Spinner';
 
-function SearchInput({ items, setChosenItem, inputName, inputPlaceholder }) {
+function SearchInput({
+  items,
+  setChosenItem,
+  inputName,
+  inputPlaceholder,
+  loading,
+}) {
   const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -25,6 +32,7 @@ function SearchInput({ items, setChosenItem, inputName, inputPlaceholder }) {
         );
         setFilteredItems(itemsFiltered);
       }, 300),
+
     [],
   );
 
@@ -55,27 +63,32 @@ function SearchInput({ items, setChosenItem, inputName, inputPlaceholder }) {
         type="text"
         className="search-input__input"
       />
-      <div ref={ref} className="search-input__list-items">
-        {isCountriesListExpanded ? (
-          <ul className="search-input__list">
-            {filteredItems.map(({ name, code }) => (
-              <li className="search-input__item" key={code}>
-                <Button
-                  className="search-input__item-button"
-                  type="button"
-                  onClick={() => onItemsSelect(name)}
-                  text={name}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+      {loading === true ? (
+        <Spinner />
+      ) : (
+        <div ref={ref} className="search-input__list-items">
+          {isCountriesListExpanded ? (
+            <ul className="search-input__list">
+              {filteredItems.map(({ name, code }) => (
+                <li className="search-input__item" key={code}>
+                  <Button
+                    className="search-input__item-button"
+                    type="button"
+                    onClick={() => onItemsSelect(name)}
+                    text={name}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      )}
     </div>
   );
 }
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
