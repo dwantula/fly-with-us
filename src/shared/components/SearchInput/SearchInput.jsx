@@ -14,11 +14,12 @@ function SearchInput({
   setChosenItem,
   inputName,
   inputPlaceholder,
-  loading,
+  isSearchingItems,
 }) {
   const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [isloading, setLoading] = useState(false);
 
   const ref = useOnclickOutside(() => {
     setCountriesListExpanded(false);
@@ -27,13 +28,14 @@ function SearchInput({
   const filterItems = useMemo(
     () =>
       debounce((items, filterPhrase) => {
+        setLoading(!isloading);
         const itemsFiltered = items.filter(({ name }) =>
           name.toLowerCase().includes(filterPhrase.toLowerCase()),
         );
         setFilteredItems(itemsFiltered);
+        setLoading((prevState) => prevState);
       }, 300),
-
-    [],
+    [isloading],
   );
 
   const handleInputChange = (event) => {
@@ -63,22 +65,26 @@ function SearchInput({
         type="text"
         className="search-input__input"
       />
-      {loading === true ? (
+      {isSearchingItems ? (
         <Spinner />
       ) : (
         <div ref={ref} className="search-input__list-items">
           {isCountriesListExpanded ? (
             <ul className="search-input__list">
-              {filteredItems.map(({ name, code }) => (
-                <li className="search-input__item" key={code}>
-                  <Button
-                    className="search-input__item-button"
-                    type="button"
-                    onClick={() => onItemsSelect(name)}
-                    text={name}
-                  />
-                </li>
-              ))}
+              {isloading ? (
+                <Spinner />
+              ) : (
+                filteredItems.map(({ name, code }) => (
+                  <li className="search-input__item" key={code}>
+                    <Button
+                      className="search-input__item-button"
+                      type="button"
+                      onClick={() => onItemsSelect(name)}
+                      text={name}
+                    />
+                  </li>
+                ))
+              )}
             </ul>
           ) : null}
         </div>
@@ -88,7 +94,7 @@ function SearchInput({
 }
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
-  loading: PropTypes.bool.isRequired,
+  isSearchingItems: PropTypes.bool.isRequired,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
