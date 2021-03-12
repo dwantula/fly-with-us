@@ -24,7 +24,12 @@ function Home() {
         <h1 className="main__title-text">Let the journey begin</h1>
       </div>
       <div className="main__search">
-        <SearchInput items={countries} setChosenItem={setChosenCountry} />
+        <SearchInput
+          items={countries}
+          setChosenItem={setChosenCountry}
+          inputName="country"
+          inputPlaceholder="Search countries"
+        />
       </div>
       <div className="main__button">
         <Button className="main__button-search" text="Let's go" />

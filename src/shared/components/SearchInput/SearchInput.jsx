@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import useOnclickOutside from 'react-cool-onclickoutside';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 
@@ -7,10 +8,14 @@ import Input from '../Input/Input';
 
 import './styles.scss';
 
-function SearchInput({ items, setChosenItem }) {
+function SearchInput({ items, setChosenItem, inputName, inputPlaceholder }) {
   const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
+
+  const ref = useOnclickOutside(() => {
+    setCountriesListExpanded(false);
+  });
 
   const filterItems = useMemo(
     () =>
@@ -44,13 +49,13 @@ function SearchInput({ items, setChosenItem }) {
       <Input
         onChange={handleInputChange}
         value={inputValue}
-        placeholder="Search countries"
-        name="country"
+        placeholder={inputPlaceholder}
+        name={inputName}
         onFocus={toggleCountriesList}
         type="text"
         className="search-input__input"
       />
-      <div className="search-input__list-items">
+      <div ref={ref} className="search-input__list-items">
         {isCountriesListExpanded ? (
           <ul className="search-input__list">
             {filteredItems.map(({ name, code }) => (
@@ -71,6 +76,8 @@ function SearchInput({ items, setChosenItem }) {
 }
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
+  inputName: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       Name: PropTypes.string,
@@ -80,6 +87,8 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   setChosenItem: () => {},
+  inputPlaceholder: '',
+  inputName: '',
   items: [],
 };
 
