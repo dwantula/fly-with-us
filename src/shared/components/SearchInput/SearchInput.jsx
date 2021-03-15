@@ -4,10 +4,10 @@ import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
+import Spinner from '../Spinner/Spinner';
 import Input from '../Input/Input';
 
 import './styles.scss';
-import Spinner from '../Spinner/Spinner';
 
 function SearchInput({
   items,
@@ -94,6 +94,7 @@ function SearchInput({
     </div>
   );
 }
+
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
   isLoadingItems: PropTypes.bool.isRequired,

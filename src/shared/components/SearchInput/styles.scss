@@ -39,7 +39,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  z-index: 1;
 }
 
 .search-input__item-button {
@@ -48,8 +47,9 @@
   height: 40px;
   font-size: 13px;
   cursor: pointer;
+  outline: none;
   text-align: center;
-  background-color: $white;
+  background-color: $lightGrey;
   border: none;
   border-bottom: 1px solid $gray;
   align-items: center;
