@@ -30,7 +30,7 @@ function Home() {
           setChosenItem={setChosenCountry}
           inputName="country"
           inputPlaceholder="Search countries"
-          isSearchingItems={isLoadingCountries}
+          isLoadingItems={isLoadingCountries}
         />
       </div>
       <div className="main__button">

@@ -14,12 +14,12 @@ function SearchInput({
   setChosenItem,
   inputName,
   inputPlaceholder,
-  isSearchingItems,
+  isLoadingItems,
 }) {
   const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
-  const [isloading, setLoading] = useState(false);
+  const [isSearchingItems, setSearchingItems] = useState(false);
 
   const ref = useOnclickOutside(() => {
     setCountriesListExpanded(false);
@@ -28,14 +28,14 @@ function SearchInput({
   const filterItems = useMemo(
     () =>
       debounce((items, filterPhrase) => {
-        setLoading(!isloading);
+        setSearchingItems((prevState) => !prevState);
         const itemsFiltered = items.filter(({ name }) =>
           name.toLowerCase().includes(filterPhrase.toLowerCase()),
         );
         setFilteredItems(itemsFiltered);
-        setLoading((prevState) => prevState);
+        setSearchingItems((prevState) => !prevState);
       }, 300),
-    [isloading],
+    [],
   );
 
   const handleInputChange = (event) => {
@@ -65,36 +65,38 @@ function SearchInput({
         type="text"
         className="search-input__input"
       />
-      {isSearchingItems ? (
-        <Spinner />
-      ) : (
-        <div ref={ref} className="search-input__list-items">
-          {isCountriesListExpanded ? (
-            <ul className="search-input__list">
-              {isloading ? (
-                <Spinner />
-              ) : (
-                filteredItems.map(({ name, code }) => (
-                  <li className="search-input__item" key={code}>
-                    <Button
-                      className="search-input__item-button"
-                      type="button"
-                      onClick={() => onItemsSelect(name)}
-                      text={name}
-                    />
-                  </li>
-                ))
-              )}
-            </ul>
-          ) : null}
-        </div>
-      )}
+      {(() => {
+        if (isLoadingItems) {
+          return <Spinner />;
+        }
+        return null;
+      })()}
+      <div ref={ref} className="search-input__list-items">
+        {isCountriesListExpanded ? (
+          <ul className="search-input__list">
+            {isSearchingItems ? (
+              <Spinner />
+            ) : (
+              filteredItems.map(({ name, code }) => (
+                <li className="search-input__item" key={code}>
+                  <Button
+                    className="search-input__item-button"
+                    type="button"
+                    onClick={() => onItemsSelect(name)}
+                    text={name}
+                  />
+                </li>
+              ))
+            )}
+          </ul>
+        ) : null}
+      </div>
     </div>
   );
 }
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
-  isSearchingItems: PropTypes.bool.isRequired,
+  isLoadingItems: PropTypes.bool.isRequired,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
