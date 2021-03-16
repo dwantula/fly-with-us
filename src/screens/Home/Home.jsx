@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCountriesAction } from 'shared/store/countires/actions';
+import { getPlacesAction } from 'shared/store/places/actions';
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 
@@ -9,15 +10,24 @@ import './styles.scss';
 
 function Home() {
   const [chosenCountry, setChosenCountry] = useState('');
+  const [chosenPlace, setChosenPlace] = useState('');
 
   const { countries } = useSelector((state) => state.countries);
   const isLoadingCountries = useSelector((state) => state.countries.loading);
+  const { places } = useSelector((state) => state.places);
+  const isLoadingPlaces = useSelector((state) => state.places.loading);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCountriesAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (chosenCountry) {
+      dispatch(getPlacesAction(chosenCountry));
+    }
+  }, [dispatch, chosenCountry]);
 
   return (
     <div className="main">
@@ -32,6 +42,15 @@ function Home() {
           inputPlaceholder="Search countries"
           isLoadingItems={isLoadingCountries}
         />
+        {chosenCountry ? (
+          <SearchInput
+            items={places}
+            setChosenItem={setChosenPlace}
+            inputName="place"
+            inputPlaceholder="Search place"
+            isLoadingItems={isLoadingPlaces}
+          />
+        ) : null}
       </div>
       <div className="main__button">
         <Button className="main__button-search" text="Let's go" />
