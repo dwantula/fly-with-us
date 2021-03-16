@@ -22,11 +22,11 @@
 
 .search-input__list-items {
   display: flex;
-  max-width: 170px;
+  max-width: 168px;
   max-height: 230px;
   align-items: center;
   justify-content: center;
-  overflow: scroll;
+  overflow: auto;
   list-style: none;
   background-color: $whitesmoke;
 }
@@ -39,23 +39,22 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  z-index: 1;
 }
 
 .search-input__item-button {
   display: flex;
-  width: 170px;
+  width: 150px;
   height: 40px;
   font-size: 13px;
   cursor: pointer;
+  outline: none;
   text-align: center;
-  background-color: $white;
+  background-color: $lightGrey;
   border: none;
   border-bottom: 1px solid $gray;
   align-items: center;
   justify-content: center;
   &:hover {
     background-color: $lightGray;
-
   }
 }

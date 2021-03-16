@@ -1,0 +1,30 @@
+@import 'shared/styles/colors.scss';
+
+.spinner {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  width: 54px;
+  height: 54px;
+  margin: 15px;
+  border-radius: 50%;
+  border: 6px solid $green;
+  border-color: $green transparent;
+  animation: spinner 1.3s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner__text {
+  display: flex;
+  align-items: center;
+  letter-spacing: 2px;
+  align-self: center;
+  margin-top: -10px;
+}

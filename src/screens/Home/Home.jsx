@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCountriesAction } from 'shared/store/countires/actions';
-
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 
 import './styles.scss';
 
 function Home() {
-  const { countries } = useSelector((state) => state.countries);
   const [chosenCountry, setChosenCountry] = useState('');
+
+  const { countries } = useSelector((state) => state.countries);
+  const isLoadingCountries = useSelector((state) => state.countries.loading);
 
   const dispatch = useDispatch();
 
@@ -29,6 +30,7 @@ function Home() {
           setChosenItem={setChosenCountry}
           inputName="country"
           inputPlaceholder="Search countries"
+          isLoadingItems={isLoadingCountries}
         />
       </div>
       <div className="main__button">
