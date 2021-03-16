@@ -8,6 +8,6 @@ export async function fetchPlacesList(country) {
   });
   return response.data.Places.map((place) => ({
     name: place.PlaceName,
-    code: place.PlaceId,
+    id: place.PlaceId,
   }));
 }

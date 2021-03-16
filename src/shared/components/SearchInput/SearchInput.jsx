@@ -77,8 +77,8 @@ function SearchInput({
             {isSearchingItems ? (
               <Spinner />
             ) : (
-              filteredItems.map(({ name, code }) => (
-                <li className="search-input__item" key={code}>
+              filteredItems.map(({ name, id }) => (
+                <li className="search-input__item" key={id}>
                   <Button
                     className="search-input__item-button"
                     type="button"

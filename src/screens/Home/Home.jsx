@@ -16,7 +16,6 @@ function Home() {
   const isLoadingCountries = useSelector((state) => state.countries.loading);
   const { places } = useSelector((state) => state.places);
   const isLoadingPlaces = useSelector((state) => state.places.loading);
-  console.log(places);
 
   const dispatch = useDispatch();
 
@@ -30,7 +29,6 @@ function Home() {
     }
   }, [dispatch, chosenCountry]);
 
-  console.log(chosenPlace);
   return (
     <div className="main">
       <div className="main__title">
@@ -44,7 +42,7 @@ function Home() {
           inputPlaceholder="Search countries"
           isLoadingItems={isLoadingCountries}
         />
-        {chosenCountry && (
+        {chosenCountry ? (
           <SearchInput
             items={places}
             setChosenItem={setChosenPlace}
@@ -52,7 +50,7 @@ function Home() {
             inputPlaceholder="Search place"
             isLoadingItems={isLoadingPlaces}
           />
-        )}
+        ) : null}
       </div>
       <div className="main__button">
         <Button className="main__button-search" text="Let's go" />
