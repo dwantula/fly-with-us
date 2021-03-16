@@ -44,14 +44,14 @@ function SearchInput({
     filterItems(items, filterPhrase);
   };
 
-  function toggleCountriesList() {
+  function toggleItemsList() {
     setCountriesListExpanded((prevState) => !prevState);
   }
 
   function onItemsSelect(name) {
     setInputValue(name);
     setChosenItem(name);
-    toggleCountriesList();
+    toggleItemsList();
   }
 
   return (
@@ -61,7 +61,7 @@ function SearchInput({
         value={inputValue}
         placeholder={inputPlaceholder}
         name={inputName}
-        onFocus={toggleCountriesList}
+        onFocus={toggleItemsList}
         type="text"
         className="search-input__input"
       />
@@ -97,7 +97,7 @@ function SearchInput({
 
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
-  isLoadingItems: PropTypes.bool.isRequired,
+  isLoadingItems: PropTypes.bool,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
@@ -112,6 +112,7 @@ SearchInput.defaultProps = {
   inputPlaceholder: '',
   inputName: '',
   items: [],
+  isLoadingItems: false,
 };
 
 export default SearchInput;
