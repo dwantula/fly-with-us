@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
@@ -22,7 +23,7 @@ function SearchInput({
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSearchingItems, setSearchingItems] = useState(false);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const ref = useOnclickOutside(() => {
     setCountriesListExpanded(false);
@@ -45,18 +46,16 @@ function SearchInput({
   const debounceInputValue = useMemo(
     () =>
       debounce((filterPhrase) => {
-        itemsAction(filterPhrase);
+        dispatch(itemsAction(filterPhrase));
       }, 300),
-    [itemsAction],
+    [dispatch, itemsAction],
   );
-
-  console.log(debounceInputValue);
 
   const handleInputChange = (event) => {
     const filterPhrase = event.target.value;
     setInputValue(filterPhrase);
     filterItems(items, filterPhrase);
-    debounceInputValue(items, filterPhrase);
+    debounceInputValue(filterPhrase);
   };
 
   function toggleItemsList() {
@@ -65,7 +64,6 @@ function SearchInput({
 
   function onItemsSelect(name) {
     setInputValue(name);
-    itemsAction(name);
     setChosenItem(name);
     toggleItemsList();
   }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // import { getCountriesAction } from 'shared/store/countires/actions';
 import { getPlacesAction } from 'shared/store/places/actions';
@@ -17,15 +17,15 @@ function Home() {
   const { places } = useSelector((state) => state.places);
   const isLoadingPlaces = useSelector((state) => state.places.loading);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // useEffect(() => {
   //   dispatch(getCountriesAction());
   // }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getPlacesAction());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPlacesAction());
+  // }, [dispatch]);
 
   return (
     <div className="main">
@@ -52,6 +52,7 @@ function Home() {
             inputName="destination"
             inputPlaceholder="Search a destination"
             isLoadingItems={isLoadingPlaces}
+            itemsAction={getPlacesAction}
           />
         </div>
       </div>
