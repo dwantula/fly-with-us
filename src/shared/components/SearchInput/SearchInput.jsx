@@ -65,6 +65,7 @@ function SearchInput({
   function onItemsSelect(name) {
     setInputValue(name);
     setChosenItem(name);
+    debounceInputValue(name);
     toggleItemsList();
   }
 

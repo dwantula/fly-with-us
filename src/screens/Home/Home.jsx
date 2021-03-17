@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // import { getCountriesAction } from 'shared/store/countires/actions';
-import { getPlacesAction } from 'shared/store/places/actions';
+import {
+  getOriginPlaceAction,
+  getDestinationPlaceAction,
+} from 'shared/store/places/actions';
+
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 
@@ -14,9 +18,14 @@ function Home() {
 
   // const { countries } = useSelector((state) => state.countries);
   // const isLoadingCountries = useSelector((state) => state.countries.loading);
-  const { places } = useSelector((state) => state.places);
-  const isLoadingPlaces = useSelector((state) => state.places.loading);
+  const { originPlaces } = useSelector((state) => state.places);
+  console.log(originPlaces);
+  const isLoadingOriginPlaces = useSelector((state) => state.places.loading);
 
+  const { destinationPlaces } = useSelector((state) => state.places);
+  const { isLoadingDestinationPlaces } = useSelector(
+    (state) => state.places.loading,
+  );
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -36,23 +45,23 @@ function Home() {
         <div className="main__search-from">
           <span>From</span>
           <SearchInput
-            items={places}
+            items={originPlaces}
             setChosenItem={setPlaceOrigin}
             inputName="origin"
             inputPlaceholder="Where do You want to fly"
-            isLoadingItems={isLoadingPlaces}
-            itemsAction={getPlacesAction}
+            isLoadingItems={isLoadingOriginPlaces}
+            itemsAction={getOriginPlaceAction}
           />
         </div>
         <div className="main__search-from">
           <span>To</span>
           <SearchInput
-            items={places}
+            items={destinationPlaces}
             setChosenItem={setPlaceDestination}
             inputName="destination"
             inputPlaceholder="Search a destination"
-            isLoadingItems={isLoadingPlaces}
-            itemsAction={getPlacesAction}
+            isLoadingItems={isLoadingDestinationPlaces}
+            itemsAction={getDestinationPlaceAction}
           />
         </div>
       </div>
