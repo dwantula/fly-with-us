@@ -15,11 +15,14 @@ function SearchInput({
   inputName,
   inputPlaceholder,
   isLoadingItems,
+  itemsAction,
 }) {
   const [inputValue, setInputValue] = useState('');
   const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSearchingItems, setSearchingItems] = useState(false);
+
+  // const dispatch = useDispatch();
 
   const ref = useOnclickOutside(() => {
     setCountriesListExpanded(false);
@@ -33,15 +36,27 @@ function SearchInput({
           name.toLowerCase().includes(filterPhrase.toLowerCase()),
         );
         setFilteredItems(itemsFiltered);
+
         setSearchingItems((prevState) => !prevState);
       }, 300),
     [],
   );
 
+  const debounceInputValue = useMemo(
+    () =>
+      debounce((filterPhrase) => {
+        itemsAction(filterPhrase);
+      }, 300),
+    [itemsAction],
+  );
+
+  console.log(debounceInputValue);
+
   const handleInputChange = (event) => {
     const filterPhrase = event.target.value;
     setInputValue(filterPhrase);
     filterItems(items, filterPhrase);
+    debounceInputValue(items, filterPhrase);
   };
 
   function toggleItemsList() {
@@ -50,6 +65,7 @@ function SearchInput({
 
   function onItemsSelect(name) {
     setInputValue(name);
+    itemsAction(name);
     setChosenItem(name);
     toggleItemsList();
   }
@@ -97,6 +113,7 @@ function SearchInput({
 
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
+  itemsAction: PropTypes.func,
   isLoadingItems: PropTypes.bool,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
@@ -109,6 +126,7 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   setChosenItem: () => {},
+  itemsAction: () => {},
   inputPlaceholder: '',
   inputName: '',
   items: [],
