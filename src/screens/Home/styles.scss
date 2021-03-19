@@ -22,8 +22,8 @@
 
 .main__search {
   display: flex;
-  height: 30vh;
-  padding: 30px;
+  flex-direction: row;
+  padding: 50px;
   align-items: center;
   align-self: center;
 }

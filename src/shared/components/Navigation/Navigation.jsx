@@ -8,7 +8,7 @@ function Navigation() {
     <nav className="navigation">
       <ul className="navigation__list">
         <li className="navigation__link">
-          <NavLink className="navigation__link-text" to="/Home">
+          <NavLink className="navigation__link-text" to="/" exact>
             Home
           </NavLink>
         </li>

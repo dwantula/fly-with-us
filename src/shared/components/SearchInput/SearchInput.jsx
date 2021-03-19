@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
+
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
@@ -16,17 +16,15 @@ function SearchInput({
   inputName,
   inputPlaceholder,
   isLoadingItems,
-  itemsAction,
+  searchAction,
 }) {
   const [inputValue, setInputValue] = useState('');
-  const [isCountriesListExpanded, setCountriesListExpanded] = useState(false);
+  const [isItemsListExpanded, setItemsListExpanded] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [isSearchingItems, setSearchingItems] = useState(false);
 
-  const dispatch = useDispatch();
-
   const ref = useOnclickOutside(() => {
-    setCountriesListExpanded(false);
+    setItemsListExpanded(false);
   });
 
   const filterItems = useMemo(
@@ -43,29 +41,29 @@ function SearchInput({
     [],
   );
 
-  const debounceInputValue = useMemo(
+  const searchActionDebounced = useMemo(
     () =>
       debounce((filterPhrase) => {
-        dispatch(itemsAction(filterPhrase));
+        searchAction(filterPhrase);
       }, 300),
-    [dispatch, itemsAction],
+    [searchAction],
   );
 
   const handleInputChange = (event) => {
     const filterPhrase = event.target.value;
     setInputValue(filterPhrase);
     filterItems(items, filterPhrase);
-    debounceInputValue(filterPhrase);
+    searchActionDebounced(filterPhrase);
   };
 
   function toggleItemsList() {
-    setCountriesListExpanded((prevState) => !prevState);
+    setItemsListExpanded((prevState) => !prevState);
   }
 
   function onItemsSelect(name) {
     setInputValue(name);
     setChosenItem(name);
-    debounceInputValue(name);
+    searchActionDebounced(name);
     toggleItemsList();
   }
 
@@ -87,7 +85,7 @@ function SearchInput({
         return null;
       })()}
       <div ref={ref} className="search-input__list-items">
-        {isCountriesListExpanded ? (
+        {isItemsListExpanded ? (
           <ul className="search-input__list">
             {isSearchingItems ? (
               <Spinner />
@@ -112,7 +110,7 @@ function SearchInput({
 
 SearchInput.propTypes = {
   setChosenItem: PropTypes.func,
-  itemsAction: PropTypes.func,
+  searchAction: PropTypes.func,
   isLoadingItems: PropTypes.bool,
   inputName: PropTypes.string,
   inputPlaceholder: PropTypes.string,
@@ -125,7 +123,7 @@ SearchInput.propTypes = {
 
 SearchInput.defaultProps = {
   setChosenItem: () => {},
-  itemsAction: () => {},
+  searchAction: () => {},
   inputPlaceholder: '',
   inputName: '',
   items: [],

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-// import { getCountriesAction } from 'shared/store/countires/actions';
 import {
   getOriginPlaceAction,
   getDestinationPlaceAction,
 } from 'shared/store/places/actions';
-
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 
@@ -16,32 +14,27 @@ function Home() {
   const [placeOrigin, setPlaceOrigin] = useState('');
   const [placeDestination, setPlaceDestination] = useState('');
 
-  // const { countries } = useSelector((state) => state.countries);
-  // const isLoadingCountries = useSelector((state) => state.countries.loading);
   const { originPlaces } = useSelector((state) => state.places);
-  console.log(originPlaces);
-  const isLoadingOriginPlaces = useSelector((state) => state.places.loading);
-
   const { destinationPlaces } = useSelector((state) => state.places);
-  const { isLoadingDestinationPlaces } = useSelector(
-    (state) => state.places.loading,
-  );
-  // const dispatch = useDispatch();
+  const { isLoadingOriginPlaces } = useSelector((state) => state.places);
+  const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
 
-  // useEffect(() => {
-  //   dispatch(getCountriesAction());
-  // }, [dispatch]);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getPlacesAction());
-  // }, [dispatch]);
+  function getDestinationPlaces(value) {
+    dispatch(getDestinationPlaceAction(value));
+  }
+
+  function getOriginplaces(value) {
+    dispatch(getOriginPlaceAction(value));
+  }
 
   return (
     <div className="main">
       <div className="main__title">
         <h1 className="main__title-text">Let the journey begin</h1>
       </div>
-      <div className="main__search">
+      <div className="main__search main--column">
         <div className="main__search-from">
           <span>From</span>
           <SearchInput
@@ -50,7 +43,7 @@ function Home() {
             inputName="origin"
             inputPlaceholder="Where do You want to fly"
             isLoadingItems={isLoadingOriginPlaces}
-            itemsAction={getOriginPlaceAction}
+            searchAction={getOriginplaces}
           />
         </div>
         <div className="main__search-from">
@@ -61,7 +54,7 @@ function Home() {
             inputName="destination"
             inputPlaceholder="Search a destination"
             isLoadingItems={isLoadingDestinationPlaces}
-            itemsAction={getDestinationPlaceAction}
+            searchAction={getDestinationPlaces}
           />
         </div>
       </div>
@@ -73,13 +66,3 @@ function Home() {
 }
 
 export default Home;
-
-// {
-//   /* <SearchInput
-// items={countries}
-// setChosenItem={setChosenCountry}
-// inputName="country"
-// inputPlaceholder="Search countries"
-// isLoadingItems={isLoadingCountries}
-// /> */
-// }

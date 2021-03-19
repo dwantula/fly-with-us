@@ -10,29 +10,42 @@ import {
 const initialState = {
   originPlaces: [],
   destinationPlaces: [],
-  loading: false,
+  isLoadingOriginPlaces: false,
+  isloadingDestinationPlaces: false,
   error: '',
 };
 
 function placesReducer(state = initialState, action) {
   switch (action.type) {
     case GET_DESTINATION_PLACES_STARTED: {
-      return { ...state, loading: true };
+      return { ...state, isLoadingDestinationPlaces: true };
     }
     case GET_DESTINATION_PLACES_FULFILLED: {
-      return { ...state, destinationPlaces: action.payload, loading: false };
+      return {
+        ...state,
+        destinationPlaces: action.payload,
+        isLoadingDestinationPlaces: false,
+      };
     }
     case GET_DESTINATION_PLACES_REJECTED: {
-      return { ...state, error: action.payload, loading: false };
+      return {
+        ...state,
+        error: action.payload,
+        isLoadingDestinationPlaces: false,
+      };
     }
     case GET_ORIGIN_PLACES_STARTED: {
-      return { ...state, loading: true };
+      return { ...state, isLoadingOriginPlaces: true };
     }
     case GET_ORIGIN_PLACES_FULFILLED: {
-      return { ...state, originPlaces: action.payload, loading: false };
+      return {
+        ...state,
+        originPlaces: action.payload,
+        isLoadingOriginPlaces: false,
+      };
     }
     case GET_ORIGIN_PLACES_REJECTED: {
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: action.payload, isLoadingOriginPlaces: false };
     }
     default:
       return state;
