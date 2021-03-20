@@ -11,8 +11,8 @@ import SearchInput from 'shared/components/SearchInput/SearchInput';
 import './styles.scss';
 
 function Home() {
-  const [placeOrigin, setPlaceOrigin] = useState('');
-  const [placeDestination, setPlaceDestination] = useState('');
+  const [originPlace, setOriginPlace] = useState('');
+  const [destinationPlace, setDestinationPlace] = useState('');
 
   const { originPlaces } = useSelector((state) => state.places);
   const { destinationPlaces } = useSelector((state) => state.places);
@@ -39,9 +39,9 @@ function Home() {
           <span>From</span>
           <SearchInput
             items={originPlaces}
-            setChosenItem={setPlaceOrigin}
+            setChosenItem={setOriginPlace}
             inputName="origin"
-            inputPlaceholder="Where do You want to fly"
+            inputPlaceholder="Whrite country or city "
             isLoadingItems={isLoadingOriginPlaces}
             searchAction={getOriginplaces}
           />
@@ -50,9 +50,9 @@ function Home() {
           <span>To</span>
           <SearchInput
             items={destinationPlaces}
-            setChosenItem={setPlaceDestination}
+            setChosenItem={setDestinationPlace}
             inputName="destination"
-            inputPlaceholder="Search a destination"
+            inputPlaceholder="Whrite country or city"
             isLoadingItems={isLoadingDestinationPlaces}
             searchAction={getDestinationPlaces}
           />
