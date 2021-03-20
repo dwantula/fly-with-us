@@ -1,9 +1,9 @@
 import apiClient from './apiClient';
 
-export async function fetchPlacesList(country) {
+export async function fetchPlacesList(param) {
   const response = await apiClient.get('/autosuggest/v1.0/PL/PLN/PL/', {
     params: {
-      query: country,
+      query: param,
     },
   });
   return response.data.Places.map((place) => ({
