@@ -7,12 +7,15 @@ import {
 } from 'shared/store/places/actions';
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
+import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
 
 import './styles.scss';
 
 function Home() {
   const [originPlace, setOriginPlace] = useState('');
   const [destinationPlace, setDestinationPlace] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [dateOfReturn, setDateOfReturn] = useState('');
 
   const { originPlaces } = useSelector((state) => state.places);
   const { destinationPlaces } = useSelector((state) => state.places);
@@ -34,7 +37,7 @@ function Home() {
       <div className="main__title">
         <h1 className="main__title-text">Let the journey begin</h1>
       </div>
-      <div className="main__search main--column">
+      <div className="main__search">
         <div className="main__search-from">
           <span>From</span>
           <SearchInput
@@ -57,6 +60,16 @@ function Home() {
             searchAction={getDestinationPlaces}
           />
         </div>
+        <DateOfTravel
+          setChosenDate={setDepartureDate}
+          inputName="departureDate"
+          description="Depart"
+        />
+        <DateOfTravel
+          setChosenDate={setDateOfReturn}
+          inputName="dateOfReturn"
+          description="Return"
+        />
       </div>
       <div className="main__button">
         <Button className="main__button-search" text="Let's go" />
