@@ -29,7 +29,7 @@ function SearchInput({
     () =>
       debounce((filterPhrase) => {
         searchAction(filterPhrase);
-      }, 300),
+      }, 1000),
 
     [searchAction],
   );
@@ -44,9 +44,9 @@ function SearchInput({
     setOnItemSelect((prevState) => !prevState);
   }
 
-  function onItemsSelect(name) {
-    setInputValue(name);
-    setChosenItem(name);
+  function onItemsSelect(name, id) {
+    setInputValue(`${name} (${id.split('-')[0]})`);
+    setChosenItem(id);
     toggleItemsList();
   }
 
@@ -75,8 +75,8 @@ function SearchInput({
                 <Button
                   className="search-input__item-button"
                   type="button"
-                  onClick={() => onItemsSelect(name)}
-                  text={name}
+                  onClick={() => onItemsSelect(name, id)}
+                  text={`${name} (${id.split('-')[0]})`}
                 />
               </li>
             ))}

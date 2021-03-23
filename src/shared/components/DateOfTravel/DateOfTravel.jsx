@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Input from 'shared/components/Input/Input';
@@ -6,8 +6,12 @@ import Input from 'shared/components/Input/Input';
 import './styles.scss';
 
 function DataOfTravel({ inputName, setChosenDate, description }) {
+  const [inputValue, setInputValue] = useState('');
+
   function handleDateChange(event) {
-    setChosenDate(event.target.value);
+    const { value } = event.target;
+    setChosenDate(value);
+    setInputValue(value);
   }
 
   return (
@@ -16,6 +20,7 @@ function DataOfTravel({ inputName, setChosenDate, description }) {
       <Input
         type="date"
         className="date__input"
+        value={inputValue}
         onChange={handleDateChange}
         name={inputName}
       />

@@ -5,6 +5,7 @@ import {
   getOriginPlaceAction,
   getDestinationPlaceAction,
 } from 'shared/store/places/actions';
+import { getTravelQuotesAction } from 'shared/store/searchConnection/actions';
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
@@ -21,6 +22,7 @@ function Home() {
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
+  const { travelQoutes } = useSelector((state) => state.travelQoutes);
 
   const dispatch = useDispatch();
 
@@ -30,6 +32,17 @@ function Home() {
 
   function getOriginplaces(value) {
     dispatch(getOriginPlaceAction(value));
+  }
+
+  function getQoutes() {
+    dispatch(
+      getTravelQuotesAction(
+        originPlace,
+        destinationPlace,
+        departureDate,
+        dateOfReturn,
+      ),
+    );
   }
 
   return (
@@ -44,7 +57,7 @@ function Home() {
             items={originPlaces}
             setChosenItem={setOriginPlace}
             inputName="origin"
-            inputPlaceholder="Whrite country or city "
+            inputPlaceholder="Write country or city "
             isLoadingItems={isLoadingOriginPlaces}
             searchAction={getOriginplaces}
           />
@@ -55,7 +68,7 @@ function Home() {
             items={destinationPlaces}
             setChosenItem={setDestinationPlace}
             inputName="destination"
-            inputPlaceholder="Whrite country or city"
+            inputPlaceholder="Write country or city"
             isLoadingItems={isLoadingDestinationPlaces}
             searchAction={getDestinationPlaces}
           />
@@ -72,7 +85,11 @@ function Home() {
         />
       </div>
       <div className="main__button">
-        <Button className="main__button-search" text="Let's go" />
+        <Button
+          onClick={getQoutes}
+          className="main__button-search"
+          text="Let's go"
+        />
       </div>
     </div>
   );
