@@ -1,0 +1,15 @@
+.offers-list {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 80%;
+  border-radius: 6px;
+  box-shadow:  0px 0px 2px 5px grey;
+  margin: 40px auto;
+  background-color: white;
+}
+
+.offers-list__ofert {
+  display: flex;
+  flex-direction: column;
+}

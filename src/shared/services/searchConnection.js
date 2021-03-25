@@ -6,14 +6,10 @@ export async function fetchTravelQuotes(
   departureDate,
   dataOfReturn,
 ) {
-  const response = await apiClient.get('/browsequotes/v1.0/PL/PLN/PL/', {
-    params: {
-      originplace: originPlace,
-      destinationplace: destinationPlace,
-      outboundpartialdate: departureDate,
-      inboundpartialdate: dataOfReturn,
-    },
-  });
-  console.log(response);
-  return response;
+  const response = await apiClient.get(
+    `/browseroutes/v1.0/PL/PLN/PL/${originPlace}/${destinationPlace}/${departureDate}/${dataOfReturn}`,
+  );
+  // console.log(response.data);
+  const { Carriers, Places, Quotes } = response.data;
+  return { carriers: Carriers, places: Places, flightList: Quotes };
 }

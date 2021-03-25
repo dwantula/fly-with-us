@@ -5,7 +5,7 @@ import {
 } from './actions';
 
 const initialState = {
-  qoutes: {},
+  flightOffers: {},
   loading: false,
   error: '',
 };
@@ -16,7 +16,7 @@ function travelQoutesReducer(state = initialState, action) {
       return { ...state, loading: true };
     }
     case GET_QUOTES_FULFILLED: {
-      return { ...state, qoutes: action.payload, loading: false };
+      return { ...state, flightOffers: action.payload, loading: false };
     }
     case GET_QUOTES_REJECTED: {
       return { ...state, error: action.payload, loading: false };

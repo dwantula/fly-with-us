@@ -29,15 +29,15 @@ function SearchInput({
     () =>
       debounce((filterPhrase) => {
         searchAction(filterPhrase);
-      }, 1000),
+      }, 600),
 
     [searchAction],
   );
 
   const handleInputChange = (event) => {
     const filterPhrase = event.target.value;
-    setInputValue(filterPhrase);
     searchActionDebounced(filterPhrase);
+    setInputValue(filterPhrase);
   };
 
   function toggleItemsList() {
@@ -61,15 +61,15 @@ function SearchInput({
         type="text"
         className="search-input__input"
       />
-      {(() => {
-        if (isLoadingItems) {
-          return <Spinner />;
-        }
-        return null;
-      })()}
       <div ref={ref} className="search-input__list-items">
         {onItemSelect ? (
           <ul className="search-input__list">
+            {(() => {
+              if (isLoadingItems) {
+                return <Spinner />;
+              }
+              return null;
+            })()}
             {items.map(({ name, id }) => (
               <li className="search-input__item" key={id}>
                 <Button

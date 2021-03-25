@@ -6,7 +6,7 @@ import travelQoutesReducer from './searchConnection/reducer';
 const rootReducer = combineReducers({
   countries: countriesReducer,
   places: placesReducer,
-  travelQoutes: travelQoutesReducer,
+  travelOffers: travelQoutesReducer,
 });
 
 export default rootReducer;

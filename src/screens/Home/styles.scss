@@ -2,7 +2,7 @@
 
 .main {
   display: flex;
-  height: 70vh;
+  min-height: 70vh;
   border-bottom: 2px solid $gray;
   flex-direction: column;
   background-image: url("../../assets/images/main.jpg");
@@ -54,5 +54,18 @@
     background-color: $green;
     color: white;
   }
+}
+
+.main__flight-offers-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 60%;
+  margin: 40px auto;
+  height: 50px;
+  border: 2px solid green;
+  border-radius: 6px;
+  background-color: red;
+  color:white
 }
 

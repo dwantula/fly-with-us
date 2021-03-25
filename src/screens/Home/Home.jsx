@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -11,30 +11,43 @@ import SearchInput from 'shared/components/SearchInput/SearchInput';
 import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
 
 import './styles.scss';
+import FlightOffers from 'screens/FlightOffers/FlightOffers';
+import Spinner from 'shared/components/Spinner/Spinner';
 
 function Home() {
   const [originPlace, setOriginPlace] = useState('');
   const [destinationPlace, setDestinationPlace] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [dateOfReturn, setDateOfReturn] = useState('');
+  // const [isFlightOffers, setFlightOffers] = useState(false);
 
   const { originPlaces } = useSelector((state) => state.places);
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
-  const { travelQoutes } = useSelector((state) => state.travelQoutes);
-
+  const isLoadingTravelList = useSelector(
+    (state) => state.travelOffers.loading,
+  );
+  console.log(isLoadingTravelList);
   const dispatch = useDispatch();
 
   function getDestinationPlaces(value) {
     dispatch(getDestinationPlaceAction(value));
   }
 
-  function getOriginplaces(value) {
-    dispatch(getOriginPlaceAction(value));
-  }
+  const getOriginPlaces = useCallback(
+    (value) => {
+      dispatch(getOriginPlaceAction(value));
+    },
+    [dispatch],
+  );
 
-  function getQoutes() {
+  // function toggleItemsList() {
+  //   setFlightOffers((prevState) => !prevState);
+  // }
+
+  function getFlightOffers() {
+    // setFlightOffers((prevState) => !prevState);
     dispatch(
       getTravelQuotesAction(
         originPlace,
@@ -43,6 +56,7 @@ function Home() {
         dateOfReturn,
       ),
     );
+    // setFlightOffers((prevState) => !prevState);
   }
 
   return (
@@ -59,7 +73,7 @@ function Home() {
             inputName="origin"
             inputPlaceholder="Write country or city "
             isLoadingItems={isLoadingOriginPlaces}
-            searchAction={getOriginplaces}
+            searchAction={getOriginPlaces}
           />
         </div>
         <div className="main__search-from">
@@ -86,11 +100,13 @@ function Home() {
       </div>
       <div className="main__button">
         <Button
-          onClick={getQoutes}
+          onClick={getFlightOffers}
           className="main__button-search"
           text="Let's go"
         />
       </div>
+
+      <div>{isLoadingTravelList ? <Spinner /> : <FlightOffers />}</div>
     </div>
   );
 }
