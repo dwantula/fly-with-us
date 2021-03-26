@@ -5,7 +5,9 @@ import {
 } from './actions';
 
 const initialState = {
-  flightOffers: {},
+  carriers: [],
+  flightList: [],
+  places: [],
   loading: false,
   error: '',
 };
@@ -16,7 +18,14 @@ function travelQoutesReducer(state = initialState, action) {
       return { ...state, loading: true };
     }
     case GET_QUOTES_FULFILLED: {
-      return { ...state, flightOffers: action.payload, loading: false };
+      const { carriers, places, flightList } = action.payload;
+      return {
+        ...state,
+        carriers,
+        places,
+        flightList,
+        loading: false,
+      };
     }
     case GET_QUOTES_REJECTED: {
       return { ...state, error: action.payload, loading: false };

@@ -12,23 +12,25 @@ import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
 
 import './styles.scss';
 import FlightOffers from 'screens/FlightOffers/FlightOffers';
-import Spinner from 'shared/components/Spinner/Spinner';
 
 function Home() {
   const [originPlace, setOriginPlace] = useState('');
   const [destinationPlace, setDestinationPlace] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [dateOfReturn, setDateOfReturn] = useState('');
-  // const [isFlightOffers, setFlightOffers] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const { originPlaces } = useSelector((state) => state.places);
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
-  const isLoadingTravelList = useSelector(
+  const { places, carriers, flightList } = useSelector(
+    (state) => state.travelOffers,
+  );
+  const isLoadingFlightOffers = useSelector(
     (state) => state.travelOffers.loading,
   );
-  console.log(isLoadingTravelList);
+
   const dispatch = useDispatch();
 
   function getDestinationPlaces(value) {
@@ -42,12 +44,7 @@ function Home() {
     [dispatch],
   );
 
-  // function toggleItemsList() {
-  //   setFlightOffers((prevState) => !prevState);
-  // }
-
   function getFlightOffers() {
-    // setFlightOffers((prevState) => !prevState);
     dispatch(
       getTravelQuotesAction(
         originPlace,
@@ -56,7 +53,9 @@ function Home() {
         dateOfReturn,
       ),
     );
-    // setFlightOffers((prevState) => !prevState);
+    setTimeout(() => {
+      setLoading(true);
+    }, 2000);
   }
 
   return (
@@ -105,10 +104,62 @@ function Home() {
           text="Let's go"
         />
       </div>
-
-      <div>{isLoadingTravelList ? <Spinner /> : <FlightOffers />}</div>
+      {(() => {
+        if (isLoading && places.length === 0) {
+          return (
+            <h2 className="main__error-text">
+              Sorry, there are not any flights that match your filters.
+            </h2>
+          );
+        }
+        return null;
+      })()}
+      <div>
+        {isLoadingFlightOffers || places.length ? (
+          <FlightOffers
+            places={places}
+            carriers={carriers}
+            flightList={flightList}
+            isLoadingFlightOffers={isLoadingFlightOffers}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }
 
 export default Home;
+
+// {
+//   isLoadingFlightOffers || places.length ? (
+//     <FlightOffers
+//       places={places}
+//       carriers={carriers}
+//       flightList={flightList}
+//       isLoadingFlightOffers={isLoadingFlightOffers}
+//     />
+//   ) : null;
+// }
+
+// {(() => {
+//   if (isLoadingFlightOffers || places.length) {
+//     return (
+//       <FlightOffers
+//         places={places}
+//         carriers={carriers}
+//         flightList={flightList}
+//         isLoadingFlightOffers={isLoadingFlightOffers}
+//       />
+//     );
+//   }
+//   return null;
+// })()}
+
+// {(()=> {
+//   if (places.length===0) {
+//     return (
+//       <h2>lipa</h2>
+//     )
+//   }
+//   return null
+// })()}

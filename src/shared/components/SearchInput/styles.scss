@@ -23,8 +23,10 @@
 
 .search-input__list-items {
   display: flex;
-  max-width: 168px;
+  position: absolute;
+  width: 168px;
   max-height: 230px;
+  margin-top: 40px;
   align-items: center;
   justify-content: center;
   overflow: auto;

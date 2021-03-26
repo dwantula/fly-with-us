@@ -1,6 +1,5 @@
 .offers-list {
   display: flex;
-  flex-direction: column;
   height: 50vh;
   width: 80%;
   border-radius: 6px;
@@ -11,5 +10,15 @@
 
 .offers-list__ofert {
   display: flex;
-  flex-direction: column;
+  height: 200px;
+  border: 1px solid red;
+  flex-direction: row;
+}
+
+.offers-list__ofert>span {
+  background-color: red;
+  height: 2px;
+  width: 100px;
+  color: red;
+  text-align:center;
 }
