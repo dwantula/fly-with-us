@@ -18,7 +18,6 @@ function Home() {
   const [destinationPlace, setDestinationPlace] = useState('');
   const [departureDate, setDepartureDate] = useState('');
   const [dateOfReturn, setDateOfReturn] = useState('');
-  const [isLoading, setLoading] = useState(false);
 
   const { originPlaces } = useSelector((state) => state.places);
   const { destinationPlaces } = useSelector((state) => state.places);
@@ -30,6 +29,8 @@ function Home() {
   const isLoadingFlightOffers = useSelector(
     (state) => state.travelOffers.loading,
   );
+
+  const errorMessage = useSelector((state) => state.travelOffers.error);
 
   const dispatch = useDispatch();
 
@@ -53,9 +54,6 @@ function Home() {
         dateOfReturn,
       ),
     );
-    setTimeout(() => {
-      setLoading(true);
-    }, 2000);
   }
 
   return (
@@ -104,16 +102,6 @@ function Home() {
           text="Let's go"
         />
       </div>
-      {(() => {
-        if (isLoading && places.length === 0) {
-          return (
-            <h2 className="main__error-text">
-              Sorry, there are not any flights that match your filters.
-            </h2>
-          );
-        }
-        return null;
-      })()}
       <div>
         {isLoadingFlightOffers || places.length ? (
           <FlightOffers
@@ -123,12 +111,25 @@ function Home() {
             isLoadingFlightOffers={isLoadingFlightOffers}
           />
         ) : null}
+        <div>
+          {(() => {
+            if (errorMessage) {
+              return <div className="main__error-text"> {errorMessage}</div>;
+            }
+            return null;
+          })()}
+          {!places.length ? <p>Nie znaleziono lotów</p> : null}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Home;
+
+// {errorMessage ? null : (
+//   <div className="main__error-text"> {errorMessage}</div>
+// )}
 
 // {
 //   isLoadingFlightOffers || places.length ? (

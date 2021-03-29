@@ -11,12 +11,12 @@ function FlightOffers({ carriers, places, flightList, isLoadingFlightOffers }) {
       {isLoadingFlightOffers && <Spinner />}
       <div className="offers-list__ofert">
         {carriers.map(({ CarrierId, Name }) => (
-          <p>
+          <p key={CarrierId}>
             {Name}, {CarrierId}
           </p>
         ))}
         {places.map(({ SkyscannerCode }) => (
-          <div className="offers-list__ofert">
+          <div key={SkyscannerCode} className="offers-list__ofert">
             <p>{SkyscannerCode}</p>
             <span />
           </div>

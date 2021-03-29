@@ -21,14 +21,29 @@ function SearchInput({
   const [inputValue, setInputValue] = useState('');
   const [onItemSelect, setOnItemSelect] = useState(false);
 
+  function findFirstItem() {
+    const filterItems = items.filter(({ name }) =>
+      name.toLowerCase().includes(inputValue.toLowerCase()),
+    );
+    const firstItem = filterItems[0];
+    if (firstItem) {
+      const { name, id } = firstItem;
+      setInputValue(`${name} (${id.split('-')[0]})`);
+      setChosenItem(id);
+    }
+  }
+
   const ref = useOnclickOutside(() => {
     setOnItemSelect(false);
+    findFirstItem();
   });
 
   const searchActionDebounced = useMemo(
     () =>
       debounce((filterPhrase) => {
-        searchAction(filterPhrase);
+        if (filterPhrase) {
+          searchAction(filterPhrase);
+        }
       }, 600),
 
     [searchAction],

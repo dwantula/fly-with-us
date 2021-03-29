@@ -15,7 +15,7 @@ const initialState = {
 function travelQoutesReducer(state = initialState, action) {
   switch (action.type) {
     case GET_QUOTES_STARTED: {
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: '' };
     }
     case GET_QUOTES_FULFILLED: {
       const { carriers, places, flightList } = action.payload;
