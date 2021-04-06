@@ -10,6 +10,12 @@ export async function fetchTravelQuotes(
     `/browseroutes/v1.0/PL/PLN/PL/${originPlace}/${destinationPlace}/${departureDate}/${dataOfReturn}`,
   );
   console.log(response);
-  const { Carriers, Places, Quotes } = response.data;
-  return { carriers: Carriers, places: Places, flightList: Quotes };
+  const { Carriers: carriers, Places: places, Quotes: quotes } = response.data;
+
+  const convertPlacesToCamelCase = places.map((place) => ({
+    name: place.Name,
+    id: place.PlaceId,
+  }));
+  console.log(convertPlacesToCamelCase);
+  return convertPlacesToCamelCase;
 }

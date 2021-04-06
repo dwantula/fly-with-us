@@ -5,25 +5,32 @@ import {
 } from './actions';
 
 const initialState = {
-  carriers: [],
-  flightList: [],
-  places: [],
+  carriersId: [],
+  carriersName: [],
+  placesName: [],
+  quotesMinPrice: [],
   loading: false,
   error: '',
 };
 
-function travelQoutesReducer(state = initialState, action) {
+function travelQuotesReducer(state = initialState, action) {
   switch (action.type) {
     case GET_QUOTES_STARTED: {
       return { ...state, loading: true, error: '' };
     }
     case GET_QUOTES_FULFILLED: {
-      const { carriers, places, flightList } = action.payload;
+      const {
+        carriersId,
+        carriersName,
+        placesName,
+        quotesMinPrice,
+      } = action.payload;
       return {
         ...state,
-        carriers,
-        places,
-        flightList,
+        carriersId,
+        placesName,
+        quotesMinPrice,
+        carriersName,
         loading: false,
       };
     }
@@ -34,4 +41,4 @@ function travelQoutesReducer(state = initialState, action) {
       return state;
   }
 }
-export default travelQoutesReducer;
+export default travelQuotesReducer;

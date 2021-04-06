@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
 import debounce from 'lodash.debounce';
@@ -19,24 +19,8 @@ function SearchInput({
   searchAction,
 }) {
   const [inputValue, setInputValue] = useState('');
-  const [onItemSelect, setOnItemSelect] = useState(false);
-
-  function findFirstItem() {
-    const filterItems = items.filter(({ name }) =>
-      name.toLowerCase().includes(inputValue.toLowerCase()),
-    );
-    const firstItem = filterItems[0];
-    if (firstItem) {
-      const { name, id } = firstItem;
-      setInputValue(`${name} (${id.split('-')[0]})`);
-      setChosenItem(id);
-    }
-  }
-
-  const ref = useOnclickOutside(() => {
-    setOnItemSelect(false);
-    findFirstItem();
-  });
+  const [isItemsListExpanded, setItemsListExpanded] = useState(false);
+  const closeList = useRef(null);
 
   const searchActionDebounced = useMemo(
     () =>
@@ -56,7 +40,7 @@ function SearchInput({
   };
 
   function toggleItemsList() {
-    setOnItemSelect((prevState) => !prevState);
+    setItemsListExpanded((prevState) => !prevState);
   }
 
   function onItemsSelect(name, id) {
@@ -64,6 +48,19 @@ function SearchInput({
     setChosenItem(id);
     toggleItemsList();
   }
+
+  function getItem() {
+    console.log('aaa');
+    const firstItem = items[0];
+    console.log(firstItem);
+    if (firstItem) {
+      const { name, id } = firstItem;
+      onItemsSelect(name, id);
+    }
+    setItemsListExpanded(false);
+  }
+
+  useOnclickOutside(closeList, getItem);
 
   return (
     <div className="search-input">
@@ -76,15 +73,10 @@ function SearchInput({
         type="text"
         className="search-input__input"
       />
-      <div ref={ref} className="search-input__list-items">
-        {onItemSelect ? (
-          <ul className="search-input__list">
-            {(() => {
-              if (isLoadingItems) {
-                return <Spinner />;
-              }
-              return null;
-            })()}
+      <div className="search-input__list-items">
+        {isItemsListExpanded ? (
+          <ul list={closeList} className="search-input__list">
+            {isLoadingItems ? <Spinner /> : null}
             {items.map(({ name, id }) => (
               <li className="search-input__item" key={id}>
                 <Button
@@ -110,7 +102,8 @@ SearchInput.propTypes = {
   inputPlaceholder: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      Name: PropTypes.string,
+      name: PropTypes.string,
+      id: PropTypes.string,
     }),
   ),
 };

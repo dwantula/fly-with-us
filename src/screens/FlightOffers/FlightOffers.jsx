@@ -5,43 +5,51 @@ import Spinner from 'shared/components/Spinner/Spinner';
 
 import './styles.scss';
 
-function FlightOffers({ carriers, places, flightList, isLoadingFlightOffers }) {
+function FlightOffers({
+  carriersId,
+  carriersName,
+  placesName,
+  quotesMinPrice,
+  isLoadingFlightOffers,
+}) {
+  console.log(carriersId);
   return (
     <div className="offers-list">
-      {isLoadingFlightOffers && <Spinner />}
+      {/* {isLoadingFlightOffers ? <Spinner /> : null}
       <div className="offers-list__ofert">
-        {carriers.map(({ CarrierId, Name }) => (
-          <p key={CarrierId}>
-            {Name}, {CarrierId}
-          </p>
-        ))}
-        {places.map(({ SkyscannerCode }) => (
-          <div key={SkyscannerCode} className="offers-list__ofert">
-            <p>{SkyscannerCode}</p>
+        {carriersName}
+        {placesName.map(({ SkyscannerCode: skyscannerCode }) => (
+          <div key={skyscannerCode} className="offers-list__ofert">
+            <p>{skyscannerCode}</p>
             <span />
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
 FlightOffers.propTypes = {
-  places: PropTypes.arrayOf(
+  placesName: PropTypes.arrayOf(
     PropTypes.shape({
       Name: PropTypes.string,
     }),
   ).isRequired,
-  carriers: PropTypes.arrayOf(
+  carriersName: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      carrierId: PropTypes.string,
+    }),
+  ).isRequired,
+  quotesMinPrice: PropTypes.arrayOf(
     PropTypes.shape({
       Name: PropTypes.string,
     }),
-  ).isRequired,
-  flightList: PropTypes.arrayOf(
-    PropTypes.shape({
-      Name: PropTypes.string,
-    }),
-  ).isRequired,
+  ),
   isLoadingFlightOffers: PropTypes.bool.isRequired,
+};
+
+FlightOffers.defaultProps = {
+  quotesMinPrice: [],
 };
 
 export default FlightOffers;

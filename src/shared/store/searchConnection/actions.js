@@ -19,6 +19,7 @@ export const getTravelQuotesAction = (
       inboundpartialdate,
     );
     dispatch({ type: GET_QUOTES_FULFILLED, payload: travelQuotes });
+    console.log(travelQuotes);
   } catch (error) {
     dispatch({ type: GET_QUOTES_REJECTED, payload: error.message });
   }

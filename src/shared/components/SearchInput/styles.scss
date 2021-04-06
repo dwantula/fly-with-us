@@ -23,30 +23,31 @@
 
 .search-input__list-items {
   display: flex;
+  flex-direction: column;
   position: absolute;
-  width: 168px;
-  max-height: 230px;
+  width: 170px;
+  // max-height: 180px;
   margin-top: 40px;
   align-items: center;
-  justify-content: center;
-  overflow: auto;
-  list-style: none;
   background-color: $whitesmoke;
 }
 
 .search-input__list {
-  display: flex;
-  flex-direction: column;
+  width: 167px;
+  position: absolute;
+  max-height: 200px;
   align-items: center;
   justify-content: center;
   margin: 0;
+  overflow: hidden;
+  overflow-y: scroll;
   padding: 0;
   list-style: none;
 }
 
 .search-input__item-button {
   display: flex;
-  width: 150px;
+  width: 152px;
   height: 40px;
   font-size: 13px;
   cursor: pointer;

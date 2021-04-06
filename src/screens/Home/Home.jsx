@@ -23,7 +23,7 @@ function Home() {
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
-  const { places, carriers, flightList } = useSelector(
+  const { carriersId, carriersName, placesName, quotesMinPrice } = useSelector(
     (state) => state.travelOffers,
   );
   const isLoadingFlightOffers = useSelector(
@@ -93,6 +93,7 @@ function Home() {
           setChosenDate={setDateOfReturn}
           inputName="dateOfReturn"
           description="Return"
+          min={departureDate}
         />
       </div>
       <div className="main__button">
@@ -103,22 +104,20 @@ function Home() {
         />
       </div>
       <div>
-        {isLoadingFlightOffers || places.length ? (
+        {/* {isLoadingFlightOffers || placesName ? (
           <FlightOffers
-            places={places}
-            carriers={carriers}
-            flightList={flightList}
+            placesName={placesName}
+            carriersId={carriersId}
+            carriersName={carriersName}
+            quotesMinPrice={quotesMinPrice}
             isLoadingFlightOffers={isLoadingFlightOffers}
           />
-        ) : null}
+        ) : null} */}
         <div>
-          {(() => {
-            if (errorMessage) {
-              return <div className="main__error-text"> {errorMessage}</div>;
-            }
-            return null;
-          })()}
-          {!places.length ? <p>Nie znaleziono lotów</p> : null}
+          {errorMessage ? (
+            <div className="main__error-text"> {errorMessage}</div>
+          ) : null}
+          {!placesName ? <p>Nie znaleziono lotów</p> : null}
         </div>
       </div>
     </div>
@@ -126,41 +125,3 @@ function Home() {
 }
 
 export default Home;
-
-// {errorMessage ? null : (
-//   <div className="main__error-text"> {errorMessage}</div>
-// )}
-
-// {
-//   isLoadingFlightOffers || places.length ? (
-//     <FlightOffers
-//       places={places}
-//       carriers={carriers}
-//       flightList={flightList}
-//       isLoadingFlightOffers={isLoadingFlightOffers}
-//     />
-//   ) : null;
-// }
-
-// {(() => {
-//   if (isLoadingFlightOffers || places.length) {
-//     return (
-//       <FlightOffers
-//         places={places}
-//         carriers={carriers}
-//         flightList={flightList}
-//         isLoadingFlightOffers={isLoadingFlightOffers}
-//       />
-//     );
-//   }
-//   return null;
-// })()}
-
-// {(()=> {
-//   if (places.length===0) {
-//     return (
-//       <h2>lipa</h2>
-//     )
-//   }
-//   return null
-// })()}
