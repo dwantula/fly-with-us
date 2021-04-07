@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getOriginPlaceAction,
   getDestinationPlaceAction,
+  clearDestinationPlacesAction,
+  clearOriginPlacesAction,
 } from 'shared/store/places/actions';
 import { getTravelQuotesAction } from 'shared/store/searchConnection/actions';
 import Button from 'shared/components/Button/Button';
@@ -23,7 +25,7 @@ function Home() {
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
-  const { carriersId, carriersName, placesName, quotesMinPrice } = useSelector(
+  const { carriers, places, quotes } = useSelector(
     (state) => state.travelOffers,
   );
   const isLoadingFlightOffers = useSelector(
@@ -38,12 +40,20 @@ function Home() {
     dispatch(getDestinationPlaceAction(value));
   }
 
+  function clearDestinationPlaces() {
+    dispatch(clearDestinationPlacesAction());
+  }
+
   const getOriginPlaces = useCallback(
     (value) => {
       dispatch(getOriginPlaceAction(value));
     },
     [dispatch],
   );
+
+  function clearOriginPlaces() {
+    dispatch(clearOriginPlacesAction());
+  }
 
   function getFlightOffers() {
     dispatch(
@@ -71,6 +81,7 @@ function Home() {
             inputPlaceholder="Write country or city "
             isLoadingItems={isLoadingOriginPlaces}
             searchAction={getOriginPlaces}
+            removeItems={clearOriginPlaces}
           />
         </div>
         <div className="main__search-from">
@@ -82,6 +93,7 @@ function Home() {
             inputPlaceholder="Write country or city"
             isLoadingItems={isLoadingDestinationPlaces}
             searchAction={getDestinationPlaces}
+            removeItems={clearDestinationPlaces}
           />
         </div>
         <DateOfTravel
@@ -103,22 +115,18 @@ function Home() {
           text="Let's go"
         />
       </div>
+      {isLoadingFlightOffers || places.length ? (
+        <FlightOffers
+          places={places}
+          carriers={carriers}
+          quotes={quotes}
+          isLoadingFlightOffers={isLoadingFlightOffers}
+        />
+      ) : null}
       <div>
-        {/* {isLoadingFlightOffers || placesName ? (
-          <FlightOffers
-            placesName={placesName}
-            carriersId={carriersId}
-            carriersName={carriersName}
-            quotesMinPrice={quotesMinPrice}
-            isLoadingFlightOffers={isLoadingFlightOffers}
-          />
-        ) : null} */}
-        <div>
-          {errorMessage ? (
-            <div className="main__error-text"> {errorMessage}</div>
-          ) : null}
-          {!placesName ? <p>Nie znaleziono lotów</p> : null}
-        </div>
+        {errorMessage ? (
+          <div className="main__error-text"> {errorMessage}</div>
+        ) : null}
       </div>
     </div>
   );

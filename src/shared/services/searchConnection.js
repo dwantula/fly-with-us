@@ -10,12 +10,33 @@ export async function fetchTravelQuotes(
     `/browseroutes/v1.0/PL/PLN/PL/${originPlace}/${destinationPlace}/${departureDate}/${dataOfReturn}`,
   );
   console.log(response);
-  const { Carriers: carriers, Places: places, Quotes: quotes } = response.data;
+  const { Carriers, Places, Quotes } = response.data;
 
-  const convertPlacesToCamelCase = places.map((place) => ({
-    name: place.Name,
-    id: place.PlaceId,
-  }));
-  console.log(convertPlacesToCamelCase);
-  return convertPlacesToCamelCase;
+  function convertPlaces(Places) {
+    return Places.map(({ SkyscannerCode, PlaceId }) => ({
+      name: SkyscannerCode,
+      id: PlaceId,
+    }));
+  }
+
+  function convertCarriers(Carriers) {
+    return Carriers.map(({ CarrierId, Name }) => ({
+      name: Name,
+      carriersId: CarrierId,
+    }));
+  }
+
+  function convertQuotes(Quotes) {
+    return Quotes.map(({ MinPrice, OutboundLeg, InboundLeg }) => ({
+      price: MinPrice,
+      departureDate: OutboundLeg.DepartureDate,
+      returnDate: InboundLeg.DepartureDate,
+    }));
+  }
+
+  return {
+    places: convertPlaces(Places),
+    carriers: convertCarriers(Carriers),
+    quotes: convertQuotes(Quotes),
+  };
 }

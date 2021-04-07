@@ -5,10 +5,9 @@ import {
 } from './actions';
 
 const initialState = {
-  carriersId: [],
-  carriersName: [],
-  placesName: [],
-  quotesMinPrice: [],
+  carriers: [],
+  places: [],
+  quotes: [],
   loading: false,
   error: '',
 };
@@ -19,18 +18,12 @@ function travelQuotesReducer(state = initialState, action) {
       return { ...state, loading: true, error: '' };
     }
     case GET_QUOTES_FULFILLED: {
-      const {
-        carriersId,
-        carriersName,
-        placesName,
-        quotesMinPrice,
-      } = action.payload;
+      const { carriers, places, quotes } = action.payload;
       return {
         ...state,
-        carriersId,
-        placesName,
-        quotesMinPrice,
-        carriersName,
+        carriers,
+        places,
+        quotes,
         loading: false,
       };
     }

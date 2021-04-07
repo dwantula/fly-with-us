@@ -18,8 +18,14 @@ export const getTravelQuotesAction = (
       outboundpartialdate,
       inboundpartialdate,
     );
-    dispatch({ type: GET_QUOTES_FULFILLED, payload: travelQuotes });
-    console.log(travelQuotes);
+    dispatch(
+      travelQuotes.places.length
+        ? { type: GET_QUOTES_FULFILLED, payload: travelQuotes }
+        : {
+            type: GET_QUOTES_REJECTED,
+            payload: "Sorry, there aren't any flights that match your filters.",
+          },
+    );
   } catch (error) {
     dispatch({ type: GET_QUOTES_REJECTED, payload: error.message });
   }

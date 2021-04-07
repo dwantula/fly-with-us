@@ -1,6 +1,7 @@
-.offers-list {
+.offers {
   display: flex;
   height: 50vh;
+  flex-direction: column;
   width: 80%;
   border-radius: 6px;
   box-shadow:  0px 0px 2px 5px grey;
@@ -8,17 +9,73 @@
   background-color: white;
 }
 
-.offers-list__ofert {
+.offers__ofert {
   display: flex;
   height: 200px;
   border: 1px solid red;
   flex-direction: row;
+  padding: 15px;
 }
 
-.offers-list__ofert>span {
-  background-color: red;
-  height: 2px;
-  width: 100px;
-  color: red;
-  text-align:center;
+.offers__carriers {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  padding: 35px;
+}
+
+.offers__carriers-icon {
+  display: flex;
+  font-size: 2.2rem;
+  color: blue;
+  justify-content: center;
+}
+
+.offers__places {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 35px;
+}
+
+.offers__quotes {
+  display: flex;
+}
+
+.offers__date {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 35px;
+}
+
+.offers__price {
+  display: flex;
+  align-self: center;
+  padding-left: 30px;
+  font-size: 1.5rem;
+}
+
+.offers__select {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px;
+  padding-left: 80px;
+}
+
+.offers__icon-buy {
+  display: flex;
+  font-size: 1.5rem;
+}
+
+.offers__icon-watch {
+  display: flex;
+  font-size: 1.5rem;
+}
+
+.offers__icon {
+  display: flex;
+  margin-left: 30px;
+  font-size: 2rem;
 }

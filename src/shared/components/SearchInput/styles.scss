@@ -26,14 +26,12 @@
   flex-direction: column;
   position: absolute;
   width: 170px;
-  // max-height: 180px;
   margin-top: 40px;
-  align-items: center;
-  background-color: $whitesmoke;
 }
 
 .search-input__list {
   width: 167px;
+  background-color: $whitesmoke;
   position: absolute;
   max-height: 200px;
   align-items: center;

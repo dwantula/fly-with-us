@@ -3,6 +3,7 @@
 .main {
   display: flex;
   min-height: 70vh;
+  width: 100%;
   border-bottom: 2px solid $gray;
   flex-direction: column;
   background-image: url("../../assets/images/main.jpg");
@@ -25,13 +26,19 @@
   flex-direction: row;
   padding: 50px;
   align-items: center;
+  border-radius: 7px;
   align-self: center;
+  background-color: #02122C;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
 }
 
 .main__button {
   display: flex;
   justify-content: center;
   align-self: center;
+  padding-top: 60px;
 }
 
 .main__button-search {
@@ -56,18 +63,18 @@
   }
 }
 
-.main__flight-offers-text {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 60%;
-  margin: 40px auto;
-  height: 50px;
-  border: 2px solid green;
-  border-radius: 6px;
-  background-color: red;
-  color:white
-}
+// .main__flight-offers-text {
+//   display: flex;
+//   justify-content: center;
+//   text-align: center;
+//   width: 60%;
+//   margin: 40px auto;
+//   height: 50px;
+//   border: 2px solid green;
+//   border-radius: 6px;
+//   background-color: red;
+//   color:white
+// }
 
 .main__error-text {
   border: 2px solid red;
