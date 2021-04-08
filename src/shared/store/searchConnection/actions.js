@@ -19,7 +19,7 @@ export const getTravelQuotesAction = (
       inboundpartialdate,
     );
     dispatch(
-      travelQuotes.places.length
+      travelQuotes.quotes.length
         ? { type: GET_QUOTES_FULFILLED, payload: travelQuotes }
         : {
             type: GET_QUOTES_REJECTED,

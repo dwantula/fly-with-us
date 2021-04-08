@@ -96,17 +96,21 @@ function Home() {
             removeItems={clearDestinationPlaces}
           />
         </div>
-        <DateOfTravel
-          setChosenDate={setDepartureDate}
-          inputName="departureDate"
-          description="Depart"
-        />
-        <DateOfTravel
-          setChosenDate={setDateOfReturn}
-          inputName="dateOfReturn"
-          description="Return"
-          min={departureDate}
-        />
+        <div className="main__search-from">
+          <DateOfTravel
+            setChosenDate={setDepartureDate}
+            inputName="departureDate"
+            description="Depart"
+          />
+        </div>
+        <div className="main__search-from">
+          <DateOfTravel
+            setChosenDate={setDateOfReturn}
+            inputName="dateOfReturn"
+            description="Return"
+            min={departureDate}
+          />
+        </div>
       </div>
       <div className="main__button">
         <Button
@@ -115,7 +119,7 @@ function Home() {
           text="Let's go"
         />
       </div>
-      {isLoadingFlightOffers || places.length ? (
+      {isLoadingFlightOffers || quotes.length ? (
         <FlightOffers
           places={places}
           carriers={carriers}

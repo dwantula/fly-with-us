@@ -23,15 +23,16 @@
 
 .main__search {
   display: flex;
-  flex-direction: row;
   padding: 50px;
-  align-items: center;
+  margin: auto auto;
   border-radius: 7px;
-  align-self: center;
-  background-color: #02122C;
-  color: white;
+  background-color: $navy;
+  color: $white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 .main__button {
@@ -59,30 +60,17 @@
   outline: 0;
   &:hover {
     background-color: $green;
-    color: white;
+    color: $white;
   }
 }
 
-// .main__flight-offers-text {
-//   display: flex;
-//   justify-content: center;
-//   text-align: center;
-//   width: 60%;
-//   margin: 40px auto;
-//   height: 50px;
-//   border: 2px solid green;
-//   border-radius: 6px;
-//   background-color: red;
-//   color:white
-// }
-
 .main__error-text {
-  border: 2px solid red;
+  border: 2px solid $red;
   border-radius: 10px;
   font-size: 25px;
   text-align: center;
-  color: red;
-  background-color: white;
+  color: $red;
+  background-color: $white;
   width: 80%;
   height: 40px;
   align-items: center;

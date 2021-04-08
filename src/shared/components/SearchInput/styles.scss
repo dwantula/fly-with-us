@@ -4,14 +4,12 @@
   display: flex;
   flex-direction: column;
   max-height: 290px;
-  width: 170px;
   margin-right: 15px;
 }
 
 .search-input__input {
   display: flex;
   height: 40px;
-  width: 170px;
   border: 2px solid $green;
   color: $gray;
   padding: 10px;

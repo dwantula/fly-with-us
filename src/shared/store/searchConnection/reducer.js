@@ -5,8 +5,8 @@ import {
 } from './actions';
 
 const initialState = {
-  carriers: [],
-  places: [],
+  carriers: {},
+  places: {},
   quotes: [],
   loading: false,
   error: '',
