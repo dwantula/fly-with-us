@@ -16,6 +16,12 @@ export const getDestinationPlaceAction = (param) => async (dispatch) => {
   }
 };
 
+export const RESET_DESTINATION_PLACES = 'RESET_DESTINATION_PLACES';
+
+export const clearDestinationPlacesAction = () => (dispatch) => {
+  dispatch({ type: RESET_DESTINATION_PLACES });
+};
+
 export const GET_ORIGIN_PLACES_STARTED = 'GET_ORIGIN_PLACES_STARTED';
 export const GET_ORIGIN_PLACES_FULFILLED = 'GET_ORIGIN_PLACES_FULFILLED';
 export const GET_ORIGIN_PLACES_REJECTED = 'GET_ORIGIN_PLACES_REJECTED';
@@ -28,4 +34,10 @@ export const getOriginPlaceAction = (param) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: GET_ORIGIN_PLACES_REJECTED, payload: error.message });
   }
+};
+
+export const RESET_ORIGIN_PLACES = 'RESET_ORIGIN_PLACES';
+
+export const clearOriginPlacesAction = () => (dispatch) => {
+  dispatch({ type: RESET_ORIGIN_PLACES });
 };

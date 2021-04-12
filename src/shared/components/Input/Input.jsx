@@ -12,6 +12,7 @@ function Input({
   onChange,
   placeholder,
   type,
+  min,
 }) {
   return (
     <input
@@ -24,6 +25,7 @@ function Input({
       onBlur={onBlur}
       autoComplete="off"
       value={value}
+      min={min}
     />
   );
 }
@@ -37,6 +39,7 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   value: PropTypes.string,
   className: PropTypes.string,
+  min: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -48,6 +51,7 @@ Input.defaultProps = {
   onFocus: () => {},
   value: '',
   className: '',
+  min: '',
 };
 
 export default Input;

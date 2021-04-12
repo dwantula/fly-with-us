@@ -1,9 +1,11 @@
 import {
   GET_DESTINATION_PLACES_STARTED,
   GET_DESTINATION_PLACES_FULFILLED,
+  RESET_DESTINATION_PLACES,
   GET_DESTINATION_PLACES_REJECTED,
   GET_ORIGIN_PLACES_STARTED,
   GET_ORIGIN_PLACES_FULFILLED,
+  RESET_ORIGIN_PLACES,
   GET_ORIGIN_PLACES_REJECTED,
 } from './actions';
 
@@ -27,6 +29,12 @@ function placesReducer(state = initialState, action) {
         isLoadingDestinationPlaces: false,
       };
     }
+    case RESET_DESTINATION_PLACES: {
+      return {
+        ...state,
+        destinationPlaces: [],
+      };
+    }
     case GET_DESTINATION_PLACES_REJECTED: {
       return {
         ...state,
@@ -42,6 +50,12 @@ function placesReducer(state = initialState, action) {
         ...state,
         originPlaces: action.payload,
         isLoadingOriginPlaces: false,
+      };
+    }
+    case RESET_ORIGIN_PLACES: {
+      return {
+        ...state,
+        originPlaces: [],
       };
     }
     case GET_ORIGIN_PLACES_REJECTED: {

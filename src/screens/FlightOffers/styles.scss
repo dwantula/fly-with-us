@@ -1,0 +1,11 @@
+.offers {
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+}
+
+.offers__ofert {
+  display: flex;
+  min-height: 200px;
+  flex-direction: column;
+}

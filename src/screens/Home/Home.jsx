@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
   getOriginPlaceAction,
   getDestinationPlaceAction,
+  clearDestinationPlacesAction,
+  clearOriginPlacesAction,
 } from 'shared/store/places/actions';
+import {
+  getTravelQuotesAction,
+  clearTravelQuotes,
+} from 'shared/store/searchConnection/actions';
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
+import FlightOffers from 'screens/FlightOffers/FlightOffers';
 
 import './styles.scss';
 
@@ -21,6 +28,14 @@ function Home() {
   const { destinationPlaces } = useSelector((state) => state.places);
   const { isLoadingOriginPlaces } = useSelector((state) => state.places);
   const { isLoadingDestinationPlaces } = useSelector((state) => state.places);
+  const { carriers, places, quotes } = useSelector(
+    (state) => state.travelOffers,
+  );
+  const isLoadingFlightOffers = useSelector(
+    (state) => state.travelOffers.loading,
+  );
+
+  const errorMessage = useSelector((state) => state.travelOffers.error);
 
   const dispatch = useDispatch();
 
@@ -28,9 +43,34 @@ function Home() {
     dispatch(getDestinationPlaceAction(value));
   }
 
-  function getOriginplaces(value) {
-    dispatch(getOriginPlaceAction(value));
+  function clearDestinationPlaces() {
+    dispatch(clearDestinationPlacesAction());
   }
+
+  const getOriginPlaces = useCallback(
+    (value) => {
+      dispatch(getOriginPlaceAction(value));
+    },
+    [dispatch],
+  );
+
+  function clearOriginPlaces() {
+    dispatch(clearOriginPlacesAction());
+  }
+
+  function getFlightOffers() {
+    dispatch(
+      getTravelQuotesAction(
+        originPlace,
+        destinationPlace,
+        departureDate,
+        dateOfReturn,
+      ),
+    );
+    dispatch(clearTravelQuotes());
+  }
+
+  const todayDate = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="main">
@@ -44,9 +84,10 @@ function Home() {
             items={originPlaces}
             setChosenItem={setOriginPlace}
             inputName="origin"
-            inputPlaceholder="Whrite country or city "
+            inputPlaceholder="Write country or city "
             isLoadingItems={isLoadingOriginPlaces}
-            searchAction={getOriginplaces}
+            searchAction={getOriginPlaces}
+            removeItems={clearOriginPlaces}
           />
         </div>
         <div className="main__search-from">
@@ -55,24 +96,48 @@ function Home() {
             items={destinationPlaces}
             setChosenItem={setDestinationPlace}
             inputName="destination"
-            inputPlaceholder="Whrite country or city"
+            inputPlaceholder="Write country or city"
             isLoadingItems={isLoadingDestinationPlaces}
             searchAction={getDestinationPlaces}
+            removeItems={clearDestinationPlaces}
           />
         </div>
-        <DateOfTravel
-          setChosenDate={setDepartureDate}
-          inputName="departureDate"
-          description="Depart"
-        />
-        <DateOfTravel
-          setChosenDate={setDateOfReturn}
-          inputName="dateOfReturn"
-          description="Return"
-        />
+        <div className="main__search-from">
+          <DateOfTravel
+            setChosenDate={setDepartureDate}
+            inputName="departureDate"
+            description="Depart"
+            min={todayDate}
+          />
+        </div>
+        <div className="main__search-from">
+          <DateOfTravel
+            setChosenDate={setDateOfReturn}
+            inputName="dateOfReturn"
+            description="Return"
+            min={departureDate}
+          />
+          <div className="main__button">
+            <Button
+              onClick={getFlightOffers}
+              className="main__button-search"
+              text="Search Flights"
+            />
+          </div>
+        </div>
       </div>
-      <div className="main__button">
-        <Button className="main__button-search" text="Let's go" />
+      {isLoadingFlightOffers || quotes.length ? (
+        <FlightOffers
+          places={places}
+          carriers={carriers}
+          quotes={quotes}
+          isLoadingFlightOffers={isLoadingFlightOffers}
+        />
+      ) : null}
+      <div>
+        {errorMessage ? (
+          <div className="main__error-text"> {errorMessage}</div>
+        ) : null}
       </div>
     </div>
   );
