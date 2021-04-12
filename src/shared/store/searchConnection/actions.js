@@ -30,3 +30,9 @@ export const getTravelQuotesAction = (
     dispatch({ type: GET_QUOTES_REJECTED, payload: error.message });
   }
 };
+
+export const RESET_TRAVEL_QUOTES = 'RESET_TRAVEL_QUOTES';
+
+export const clearTravelQuotes = () => (dispatch) => {
+  dispatch({ type: RESET_TRAVEL_QUOTES });
+};

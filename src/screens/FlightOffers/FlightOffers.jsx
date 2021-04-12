@@ -17,6 +17,7 @@ function FlightOffers({ carriers, places, quotes, isLoadingFlightOffers }) {
             departureDate,
             departurePlaceId,
             price,
+            direct,
             returnCarrierId,
             returnDate,
             returnPlaceId,
@@ -26,6 +27,7 @@ function FlightOffers({ carriers, places, quotes, isLoadingFlightOffers }) {
                 departurePlace={places[departurePlaceId].name}
                 returnPlace={places[returnPlaceId].name}
                 price={price}
+                direct={direct}
                 departureDate={departureDate}
                 returnDate={returnDate}
                 departureCarrier={carriers[departureCarrierId].name}

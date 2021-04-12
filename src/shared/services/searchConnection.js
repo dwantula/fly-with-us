@@ -1,7 +1,7 @@
 import apiClient from './apiClient';
 
-function convertPlaces(Places) {
-  return Places.reduce(
+function convertPlaces(places) {
+  return places.reduce(
     (places, { PlaceId, SkyscannerCode }) => ({
       ...places,
       [PlaceId]: { name: SkyscannerCode },
@@ -10,8 +10,8 @@ function convertPlaces(Places) {
   );
 }
 
-function convertCarriers(Carriers) {
-  return Carriers.reduce(
+function convertCarriers(carriers) {
+  return carriers.reduce(
     (carriers, { CarrierId, Name }) => ({
       ...carriers,
       [CarrierId]: { name: Name },
@@ -20,9 +20,10 @@ function convertCarriers(Carriers) {
   );
 }
 
-function convertQuotes(Quotes) {
-  return Quotes.map(({ MinPrice, OutboundLeg, InboundLeg }) => ({
+function convertQuotes(quotes) {
+  return quotes.map(({ MinPrice, Direct, OutboundLeg, InboundLeg }) => ({
     price: MinPrice,
+    direct: Direct,
     departureDate: OutboundLeg.DepartureDate,
     departurePlaceId: OutboundLeg.OriginId,
     departureCarrierId: OutboundLeg.CarrierIds[0],

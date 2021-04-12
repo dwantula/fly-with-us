@@ -2,6 +2,7 @@ import {
   GET_QUOTES_STARTED,
   GET_QUOTES_FULFILLED,
   GET_QUOTES_REJECTED,
+  RESET_TRAVEL_QUOTES,
 } from './actions';
 
 const initialState = {
@@ -26,6 +27,9 @@ function travelQuotesReducer(state = initialState, action) {
         quotes,
         loading: false,
       };
+    }
+    case RESET_TRAVEL_QUOTES: {
+      return { ...state, carriers: {}, places: {}, quotes: [] };
     }
     case GET_QUOTES_REJECTED: {
       return { ...state, error: action.payload, loading: false };

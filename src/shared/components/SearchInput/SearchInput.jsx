@@ -32,13 +32,14 @@ function SearchInput({
         if (filterPhrase) {
           searchAction(filterPhrase);
         }
-      }, 1000),
+      }, 600),
 
     [searchAction],
   );
 
   const handleInputChange = (event) => {
     const filterPhrase = event.target.value;
+    setItemsListExpanded(true);
     searchActionDebounced(filterPhrase);
     setInputValue(filterPhrase);
   };
@@ -56,11 +57,11 @@ function SearchInput({
       const { name, id } = firstItem;
       onItemSelect(name, id);
     }
-    setItemsListExpanded(false);
   }
 
   const closeList = useOnclickOutside(() => {
     getItem();
+    toggleItemsList();
   });
 
   return (

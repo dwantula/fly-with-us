@@ -7,13 +7,16 @@ import {
   clearDestinationPlacesAction,
   clearOriginPlacesAction,
 } from 'shared/store/places/actions';
-import { getTravelQuotesAction } from 'shared/store/searchConnection/actions';
+import {
+  getTravelQuotesAction,
+  clearTravelQuotes,
+} from 'shared/store/searchConnection/actions';
 import Button from 'shared/components/Button/Button';
 import SearchInput from 'shared/components/SearchInput/SearchInput';
 import DateOfTravel from 'shared/components/DateOfTravel/DateOfTravel';
+import FlightOffers from 'screens/FlightOffers/FlightOffers';
 
 import './styles.scss';
-import FlightOffers from 'screens/FlightOffers/FlightOffers';
 
 function Home() {
   const [originPlace, setOriginPlace] = useState('');
@@ -64,7 +67,10 @@ function Home() {
         dateOfReturn,
       ),
     );
+    dispatch(clearTravelQuotes());
   }
+
+  const todayDate = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="main">
@@ -101,6 +107,7 @@ function Home() {
             setChosenDate={setDepartureDate}
             inputName="departureDate"
             description="Depart"
+            min={todayDate}
           />
         </div>
         <div className="main__search-from">
@@ -110,14 +117,14 @@ function Home() {
             description="Return"
             min={departureDate}
           />
+          <div className="main__button">
+            <Button
+              onClick={getFlightOffers}
+              className="main__button-search"
+              text="Search Flights"
+            />
+          </div>
         </div>
-      </div>
-      <div className="main__button">
-        <Button
-          onClick={getFlightOffers}
-          className="main__button-search"
-          text="Let's go"
-        />
       </div>
       {isLoadingFlightOffers || quotes.length ? (
         <FlightOffers

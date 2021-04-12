@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faShoppingCart,
-  faStar,
-  faPlane,
-  faLongArrowAltRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faStar, faPlane } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
@@ -18,10 +13,15 @@ function FlightOffer({
   returnDate,
   departureCarrier,
   returnCarrier,
+  direct,
 }) {
+  function watchFly() {
+    console.log('obserwuje');
+  }
+
   return (
     <div className="offer">
-      <div className="offer__turn">
+      <div>
         <div className="offer__departure">
           <div className="offer__carrier">
             <p>{departureCarrier}</p>
@@ -31,13 +31,15 @@ function FlightOffer({
             />
           </div>
           <div className="offer__road">
-            <p>{departureDate}</p>
+            <p>{departureDate.substr(5, 5)}</p>
             <div className="offer__road-row">
               <p>{departurePlace}</p>
-              <FontAwesomeIcon
-                icon={faLongArrowAltRight}
-                className="offer__icon-arrow"
-              />
+              <div className="offer__arrow green">
+                <p>
+                  ----------------
+                  <i className="arrow right" />
+                </p>
+              </div>
               <p>{returnPlace}</p>
             </div>
           </div>
@@ -52,27 +54,36 @@ function FlightOffer({
           </div>
           <div>
             <div className="offer__road">
-              <p>{returnDate}</p>
+              <p>{returnDate.substr(5, 5)}</p>
               <div className="offer__road-row">
                 <p>{returnPlace}</p>
-                <FontAwesomeIcon icon={faLongArrowAltRight} />
+                <div className="offer__arrow">
+                  <p>
+                    ----------------
+                    <i className="arrow right" />
+                  </p>
+                </div>
                 <p>{departurePlace}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="offer__price">
         <p>Price: {price}zł</p>
       </div>
       <div className="offers__select">
-        <div className="offers__icon-buy">
-          <span>Buy:</span>
-          <FontAwesomeIcon className="offers__icon" icon={faShoppingCart} />
-        </div>
+        <p>Direct:{direct === false ? ' No' : ' Yes'}</p>
         <div className="offers__icon-watch">
           <span>Watch:</span>
-          <FontAwesomeIcon className="offers__icon" icon={faStar} />
+          <button
+            type="button"
+            onClick={watchFly}
+            className="offer__button-watch"
+          >
+            <FontAwesomeIcon className="offers__icon" icon={faStar} />
+          </button>
         </div>
       </div>
     </div>
@@ -84,6 +95,7 @@ FlightOffer.propTypes = {
   returnPlace: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   departureDate: PropTypes.string.isRequired,
+  direct: PropTypes.bool.isRequired,
   returnDate: PropTypes.string.isRequired,
   departureCarrier: PropTypes.string.isRequired,
   returnCarrier: PropTypes.string.isRequired,
