@@ -11,10 +11,6 @@
   background-size: 100% 100%;
 }
 
-.mian__title-text {
-  display: flex;
-}
-
 .main__title {
   display: flex;
   color: $whitesmoke;
@@ -40,6 +36,7 @@
   display: flex;
   justify-content: center;
   align-self: center;
+  margin-right: 5px;
   padding-top: 30px;
 }
 

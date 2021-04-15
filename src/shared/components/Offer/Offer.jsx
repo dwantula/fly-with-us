@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane } from '@fortawesome/free-solid-svg-icons';
 
+import './styles.scss';
+
 function Offer({
   departurePlace,
   returnPlace,
@@ -21,7 +23,7 @@ function Offer({
             <p>{departureCarrier}</p>
             <FontAwesomeIcon
               icon={faPlane}
-              className="offer_icon-plane-depart"
+              className="offer__icon-plane-depart"
             />
           </div>
           <div className="offer__road">
@@ -31,7 +33,7 @@ function Offer({
               <div className="offer__arrow green">
                 <p>
                   ----------------
-                  <i className="arrow right" />
+                  <i className="offer__arrow-right" />
                 </p>
               </div>
               <p>{returnPlace}</p>
@@ -43,7 +45,7 @@ function Offer({
             <p>{returnCarrier}</p>
             <FontAwesomeIcon
               icon={faPlane}
-              className="offer_icon-plane-return"
+              className="offer__icon-plane-return"
             />
           </div>
           <div>
@@ -54,7 +56,7 @@ function Offer({
                 <div className="offer__arrow">
                   <p>
                     ----------------
-                    <i className="arrow right" />
+                    <i className="offer__arrow-right" />
                   </p>
                 </div>
                 <p>{departurePlace}</p>
@@ -65,8 +67,6 @@ function Offer({
       </div>
       <div className="offer__price">
         <p>Price: {price}zł</p>
-      </div>
-      <div className="offers__select">
         <p>Direct:{direct === false ? ' No' : ' Yes'}</p>
       </div>
     </div>

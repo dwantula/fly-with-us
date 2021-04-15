@@ -7,7 +7,7 @@ import './styles.scss';
 
 function FavouriteButton({ active, addFavouriteButton }) {
   return (
-    <div className="offers__icon-watch">
+    <div className="favourite-button">
       <span>Watch:</span>
       <button
         type="button"

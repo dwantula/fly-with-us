@@ -1,7 +1,9 @@
 @import 'shared/styles/colors.scss';
 
-.offers__icon-watch {
+.favourite-button {
   display: flex;
+  justify-content: center;
+  align-items: center;
   color: $white;
 }
 

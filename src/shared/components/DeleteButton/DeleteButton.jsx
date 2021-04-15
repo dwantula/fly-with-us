@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import './styles.scss';
+
 function DeleteButton({ deleteOffer, price }) {
   return (
-    <div className="offers__icon-watch">
+    <div className="delete-button">
       <span>Delete:</span>
       <button
         onClick={() => deleteOffer(price)}
@@ -20,12 +23,12 @@ function DeleteButton({ deleteOffer, price }) {
 
 DeleteButton.propTypes = {
   deleteOffer: PropTypes.func,
-  price: PropTypes.string,
+  price: PropTypes.number,
 };
 
 DeleteButton.defaultProps = {
   deleteOffer: () => {},
-  price: '',
+  price: 0,
 };
 
 export default DeleteButton;

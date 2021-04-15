@@ -1,0 +1,16 @@
+@import 'shared/styles/colors.scss';
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+}
+
+.offers__icon-trash {
+  display: flex;
+  font-size: 1.4rem;
+  &:hover {
+    color: $red;
+  }
+}

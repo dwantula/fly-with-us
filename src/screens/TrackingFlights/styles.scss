@@ -1,15 +1,26 @@
 @import 'shared/styles/colors.scss';
 
-.offers__icon-trash {
+.tracking-flights {
   display: flex;
-  font-size: 1.4rem;
-  &:hover {
-    color: $red;
-  }
+  flex-direction: column;
+  min-height: 472px;
+  padding: 20px;
+  background-image: url("../../assets/images/airPlane.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  background-size: cover;
+}
+
+.tracking-flights__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $whitesmoke;
+  height: 40vh;
 }
 
 .offer-delete {
-  animation: fadeInFromNone 1500ms linear normal;
+  animation: fadeInFromNone 3500ms linear normal;
 }
 
 @keyframes fadeInFromNone {

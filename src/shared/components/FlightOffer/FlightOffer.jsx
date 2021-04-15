@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   getItemFromLocalStorage,
   saveItemInLocalStorage,
 } from 'utils/localStorage';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faPlane } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
+import Offer from '../Offer/Offer';
+import FavouriteButton from '../FavouriteButton/FavouriteButton';
 
 function FlightOffer({
   departurePlace,
@@ -19,8 +19,9 @@ function FlightOffer({
   returnCarrier,
   direct,
 }) {
+  const [active, setActive] = useState(false);
   function addToFavourite() {
-    // setActive(!active);
+    setActive(!active);
     const quotes = getItemFromLocalStorage('quotes') || [];
     const quote = {
       departurePlace,
@@ -41,71 +42,21 @@ function FlightOffer({
 
   return (
     <div className="offer">
-      <div>
-        <div className="offer__departure">
-          <div className="offer__carrier">
-            <p>{departureCarrier}</p>
-            <FontAwesomeIcon
-              icon={faPlane}
-              className="offer_icon-plane-depart"
-            />
-          </div>
-          <div className="offer__road">
-            <p>{departureDate.substr(5, 5)}</p>
-            <div className="offer__road-row">
-              <p>{departurePlace}</p>
-              <div className="offer__arrow green">
-                <p>
-                  ----------------
-                  <i className="arrow right" />
-                </p>
-              </div>
-              <p>{returnPlace}</p>
-            </div>
-          </div>
-        </div>
-        <div className="offer__return">
-          <div className="offer__carrier">
-            <p>{returnCarrier}</p>
-            <FontAwesomeIcon
-              icon={faPlane}
-              className="offer_icon-plane-return"
-            />
-          </div>
-          <div>
-            <div className="offer__road">
-              <p>{returnDate.substr(5, 5)}</p>
-              <div className="offer__road-row">
-                <p>{returnPlace}</p>
-                <div className="offer__arrow">
-                  <p>
-                    ----------------
-                    <i className="arrow right" />
-                  </p>
-                </div>
-                <p>{departurePlace}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="offer__price">
-        <p>Price: {price}zł</p>
-      </div>
-      <div className="offers__select">
-        <p>Direct:{direct === false ? ' No' : ' Yes'}</p>
-        <div className="offers__icon-watch">
-          <span>Watch:</span>
-          <button
-            type="button"
-            onClick={addToFavourite}
-            className="offer__button-watch"
-          >
-            <FontAwesomeIcon className="offers__icon" icon={faStar} />
-          </button>
-        </div>
-      </div>
+      <Offer
+        departurePlace={departurePlace}
+        returnPlace={returnPlace}
+        price={price}
+        departureDate={departureDate}
+        returnDate={returnDate}
+        departureCarrier={departureCarrier}
+        returnCarrier={returnCarrier}
+        direct={direct}
+      />
+      <FavouriteButton
+        className="offer__icon"
+        addFavouriteButton={addToFavourite}
+        active={active}
+      />
     </div>
   );
 }

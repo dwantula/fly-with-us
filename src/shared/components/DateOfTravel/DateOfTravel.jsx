@@ -16,7 +16,7 @@ function DataOfTravel({ inputName, setChosenDate, description, min }) {
 
   return (
     <div className="date">
-      <span className="date__text">{description}</span>
+      <span>{description}</span>
       <Input
         type="date"
         className="date__input"
