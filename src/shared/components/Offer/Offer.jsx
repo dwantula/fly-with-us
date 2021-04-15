@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getItemFromLocalStorage,
-  saveItemInLocalStorage,
-} from 'utils/localStorage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPlane } from '@fortawesome/free-solid-svg-icons';
 
-import './styles.scss';
-
-function FlightOffer({
+function Offer({
   departurePlace,
   returnPlace,
   price,
@@ -19,26 +13,6 @@ function FlightOffer({
   returnCarrier,
   direct,
 }) {
-  function addToFavourite() {
-    // setActive(!active);
-    const quotes = getItemFromLocalStorage('quotes') || [];
-    const quote = {
-      departurePlace,
-      returnPlace,
-      price,
-      departureDate,
-      returnDate,
-      departureCarrier,
-      returnCarrier,
-      direct,
-    };
-    const theSamePrice = !!quotes.find((elem) => elem.price === price);
-    if (theSamePrice === false) {
-      const newQuote = [...quotes, quote];
-      saveItemInLocalStorage('quotes', newQuote);
-    }
-  }
-
   return (
     <div className="offer">
       <div>
@@ -51,7 +25,7 @@ function FlightOffer({
             />
           </div>
           <div className="offer__road">
-            <p>{departureDate.substr(5, 5)}</p>
+            <p>{departureDate}</p>
             <div className="offer__road-row">
               <p>{departurePlace}</p>
               <div className="offer__arrow green">
@@ -74,7 +48,7 @@ function FlightOffer({
           </div>
           <div>
             <div className="offer__road">
-              <p>{returnDate.substr(5, 5)}</p>
+              <p>{returnDate}</p>
               <div className="offer__road-row">
                 <p>{returnPlace}</p>
                 <div className="offer__arrow">
@@ -89,28 +63,17 @@ function FlightOffer({
           </div>
         </div>
       </div>
-
       <div className="offer__price">
         <p>Price: {price}zł</p>
       </div>
       <div className="offers__select">
         <p>Direct:{direct === false ? ' No' : ' Yes'}</p>
-        <div className="offers__icon-watch">
-          <span>Watch:</span>
-          <button
-            type="button"
-            onClick={addToFavourite}
-            className="offer__button-watch"
-          >
-            <FontAwesomeIcon className="offers__icon" icon={faStar} />
-          </button>
-        </div>
       </div>
     </div>
   );
 }
 
-FlightOffer.propTypes = {
+Offer.propTypes = {
   departurePlace: PropTypes.string.isRequired,
   returnPlace: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -121,4 +84,4 @@ FlightOffer.propTypes = {
   returnCarrier: PropTypes.string.isRequired,
 };
 
-export default FlightOffer;
+export default Offer;

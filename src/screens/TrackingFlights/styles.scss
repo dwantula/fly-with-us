@@ -1,1 +1,23 @@
 @import 'shared/styles/colors.scss';
+
+.offers__icon-trash {
+  display: flex;
+  font-size: 1.4rem;
+  &:hover {
+    color: $red;
+  }
+}
+
+.offer-delete {
+  animation: fadeInFromNone 1500ms linear normal;
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

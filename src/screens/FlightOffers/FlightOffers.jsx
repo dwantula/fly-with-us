@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FlightOffer from 'shared/components/FlightOffer/FlightOffer';
 import Spinner from 'shared/components/Spinner/Spinner';
+import FlightOffer from 'shared/components/FlightOffer/FlightOffer';
 
 import './styles.scss';
 

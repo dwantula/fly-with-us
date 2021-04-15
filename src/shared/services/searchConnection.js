@@ -24,10 +24,10 @@ function convertQuotes(quotes) {
   return quotes.map(({ MinPrice, Direct, OutboundLeg, InboundLeg }) => ({
     price: MinPrice,
     direct: Direct,
-    departureDate: OutboundLeg.DepartureDate,
+    departureDate: OutboundLeg.DepartureDate.substr(0, 10),
     departurePlaceId: OutboundLeg.OriginId,
     departureCarrierId: OutboundLeg.CarrierIds[0],
-    returnDate: InboundLeg.DepartureDate,
+    returnDate: InboundLeg.DepartureDate.substr(0, 10),
     returnPlaceId: InboundLeg.OriginId,
     returnCarrierId: InboundLeg.CarrierIds[0],
   }));

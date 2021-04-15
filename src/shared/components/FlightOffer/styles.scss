@@ -14,6 +14,31 @@
   }
 }
 
+.offers__icon-watch {
+  display: flex;
+  color: $white;
+}
+
+.offer__button-watch {
+  background-color: $navy;
+  border: none;
+  outline: none;
+  color: $white;
+  &:hover {
+    color:$green; 
+  }
+}
+
+.offers__icon-active {
+  color: $gold;
+  font-size: 1.4rem;
+}
+
+.offers__icon {
+  display: flex;
+  font-size: 1.5rem;
+}
+
 .offer__departure {
   display: flex;
   justify-content: center;
@@ -88,49 +113,8 @@
   padding-left: 50px;
   @media only screen and (max-width: 600px) {
     flex-direction: row;
+    padding: 0;
   }
-}
-
-.offers__icon-buy {
-  display: flex;
-}
-
-.offer__button-buy {
-  display: flex;
-  background-color: $navy;
-  border: none;
-  outline: none;
-  color: $white;
-  &:hover {
-    color:$green;
-  }
-  &:focus {
-    color: $green;
-  }
-}
-
-.offers__icon-watch {
-  display: flex;
-  color: $white;
-}
-
-.offer__button-watch {
-  display: flex;
-  background-color: $navy;
-  border: none;
-  outline: none;
-  color: $white;
-  &:hover {
-    color:$gold; 
-  }
-  &:focus {
-    color: $gold;
-  }
-}
-
-.offers__icon {
-  display: flex;
-  font-size: 1.5rem;
 }
 
 .arrow {
