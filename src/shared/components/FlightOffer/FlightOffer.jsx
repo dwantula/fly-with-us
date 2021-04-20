@@ -21,7 +21,7 @@ function FlightOffer({
 }) {
   const [active, setActive] = useState(false);
   function addToFavourite() {
-    setActive(!active);
+    setActive((prevState) => !prevState);
     const quotes = getItemFromLocalStorage('quotes') || [];
     const quote = {
       departurePlace,
@@ -39,7 +39,7 @@ function FlightOffer({
       saveItemInLocalStorage('quotes', newQuote);
     }
   }
-
+  console.log(active);
   return (
     <div className="offer">
       <Offer

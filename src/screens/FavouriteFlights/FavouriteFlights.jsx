@@ -9,7 +9,7 @@ import DeleteButton from 'shared/components/DeleteButton/DeleteButton';
 
 import './styles.scss';
 
-function TrackingFlights() {
+function FavouriteFlights() {
   const [quotes, setQuotes] = useState([]);
   const [qutoeDelete, setQuoteDelete] = useState(0);
 
@@ -25,7 +25,7 @@ function TrackingFlights() {
     setQuotes(quotesWithoutDeletedQuote);
     saveItemInLocalStorage('quotes', quotesWithoutDeletedQuote);
   }
-
+  console.log(quotes);
   return (
     <div className="tracking-flights">
       {quotes.length ? (
@@ -44,7 +44,7 @@ function TrackingFlights() {
               className={qutoeDelete === price ? 'offer-delete' : ''}
               key={price}
             >
-              <div className="offer">
+              <div className="tracking-flight__offer">
                 <Offer
                   departurePlace={departurePlace}
                   returnPlace={returnPlace}
@@ -62,10 +62,10 @@ function TrackingFlights() {
         )
       ) : (
         <div className="tracking-flights__info">
-          <h3>You don't have favorite connections</h3>
+          <h3>You dont have favorite connections</h3>
         </div>
       )}
     </div>
   );
 }
-export default TrackingFlights;
+export default FavouriteFlights;

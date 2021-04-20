@@ -1,25 +1,5 @@
 @import 'shared/styles/colors.scss';
 
-.offers__icon-watch {
-  display: flex;
-  color: $white;
-}
-
-.offer__button-watch {
-  background-color: $navy;
-  border: none;
-  outline: none;
-  color: $white;
-  &:hover {
-    color:$green; 
-  }
-}
-
-.offers__icon-active {
-  color: $gold;
-  font-size: 1.4rem;
-}
-
 .offer__departure {
   display: flex;
   justify-content: center;

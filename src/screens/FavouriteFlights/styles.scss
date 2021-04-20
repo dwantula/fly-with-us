@@ -3,12 +3,26 @@
 .tracking-flights {
   display: flex;
   flex-direction: column;
-  min-height: 472px;
+  min-height: 70vh;
   padding: 20px;
   background-image: url("../../assets/images/airPlane.jpg");
-  // background-repeat: no-repeat;
-  // background-size: 100% 100%;
   background-size: cover;
+}
+
+.tracking-flight__offer {
+  display: flex;
+  padding: 10px;
+  background-color: $navy;
+  border-radius: 7px;
+  color: $white;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+  margin-top: 10px;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 .tracking-flights__info {
