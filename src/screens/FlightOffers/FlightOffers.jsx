@@ -18,15 +18,17 @@ function FlightOffers({ carriers, places, quotes, isLoadingFlightOffers }) {
             departurePlaceId,
             price,
             direct,
+            quoteId,
             returnCarrierId,
             returnDate,
             returnPlaceId,
           }) => (
-            <div key={price}>
+            <div key={quoteId}>
               <FlightOffer
                 departurePlace={places[departurePlaceId].name}
                 returnPlace={places[returnPlaceId].name}
                 price={price}
+                quoteId={quoteId}
                 direct={direct}
                 departureDate={departureDate}
                 returnDate={returnDate}
@@ -54,7 +56,7 @@ FlightOffers.propTypes = {
   ).isRequired,
   quotes: PropTypes.arrayOf(
     PropTypes.shape({
-      price: PropTypes.number,
+      quoteId: PropTypes.string,
     }),
   ),
   isLoadingFlightOffers: PropTypes.bool.isRequired,

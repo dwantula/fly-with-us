@@ -6,12 +6,12 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import './styles.scss';
 
-function DeleteButton({ deleteOffer, price }) {
+function DeleteButton({ deleteOffer, quoteId }) {
   return (
     <div className="delete-button">
       <span>Delete:</span>
       <button
-        onClick={() => deleteOffer(price)}
+        onClick={() => deleteOffer(quoteId)}
         type="button"
         className="offer__button-watch"
       >
@@ -23,12 +23,12 @@ function DeleteButton({ deleteOffer, price }) {
 
 DeleteButton.propTypes = {
   deleteOffer: PropTypes.func,
-  price: PropTypes.number,
+  quoteId: PropTypes.string,
 };
 
 DeleteButton.defaultProps = {
   deleteOffer: () => {},
-  price: 0,
+  quoteId: '',
 };
 
 export default DeleteButton;

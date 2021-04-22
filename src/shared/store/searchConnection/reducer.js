@@ -1,4 +1,3 @@
-import generateId from 'utils/idGenerator';
 import {
   GET_QUOTES_STARTED,
   GET_QUOTES_FULFILLED,
@@ -10,7 +9,6 @@ const initialState = {
   carriers: {},
   places: {},
   quotes: [],
-  id: '',
   loading: false,
   error: '',
 };
@@ -22,20 +20,16 @@ function travelQuotesReducer(state = initialState, action) {
     }
     case GET_QUOTES_FULFILLED: {
       const { carriers, places, quotes } = action.payload;
-      const newQuote = {
-        quoteId: generateId('quote'),
-      };
       return {
         ...state,
         carriers,
         places,
-        id: newQuote,
         quotes,
         loading: false,
       };
     }
     case RESET_TRAVEL_QUOTES: {
-      return { ...state, carriers: {}, places: {}, quotes: [], id: '' };
+      return { ...state, carriers: {}, places: {}, quotes: [] };
     }
     case GET_QUOTES_REJECTED: {
       return { ...state, error: action.payload, loading: false };

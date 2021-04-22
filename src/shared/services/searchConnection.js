@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import apiClient from './apiClient';
 
 function convertPlaces(places) {
@@ -24,6 +25,7 @@ function convertQuotes(quotes) {
   return quotes.map(({ MinPrice, Direct, OutboundLeg, InboundLeg }) => ({
     price: MinPrice,
     direct: Direct,
+    quoteId: uuidv4(),
     departureDate: OutboundLeg.DepartureDate.substr(0, 10),
     departurePlaceId: OutboundLeg.OriginId,
     departureCarrierId: OutboundLeg.CarrierIds[0],

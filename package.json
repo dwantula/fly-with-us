@@ -25,6 +25,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.8",
     "use-onclickoutside": "^0.3.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  getItemFromLocalStorage,
-  saveItemInLocalStorage,
-} from 'utils/localStorage';
 
-import './styles.scss';
+import { addFavouriteOffer } from 'shared/store/favouriteConnections/actions';
 import Offer from '../Offer/Offer';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
+
+import './styles.scss';
 
 function FlightOffer({
   departurePlace,
   returnPlace,
   price,
+  quoteId,
   departureDate,
   returnDate,
   departureCarrier,
@@ -20,32 +20,32 @@ function FlightOffer({
   direct,
 }) {
   const [active, setActive] = useState(false);
+  const dispatch = useDispatch();
+
   function addToFavourite() {
     setActive((prevState) => !prevState);
-    const quotes = getItemFromLocalStorage('quotes') || [];
-    const quote = {
-      departurePlace,
-      returnPlace,
-      price,
-      departureDate,
-      returnDate,
-      departureCarrier,
-      returnCarrier,
-      direct,
-    };
-    const theSamePrice = !!quotes.find((elem) => elem.price === price);
-    if (theSamePrice === false) {
-      const newQuote = [...quotes, quote];
-      saveItemInLocalStorage('quotes', newQuote);
-    }
+    dispatch(
+      addFavouriteOffer(
+        departurePlace,
+        returnPlace,
+        price,
+        quoteId,
+        departureDate,
+        returnDate,
+        departureCarrier,
+        returnCarrier,
+        direct,
+      ),
+    );
   }
-  console.log(active);
+
   return (
     <div className="offer">
       <Offer
         departurePlace={departurePlace}
         returnPlace={returnPlace}
         price={price}
+        id={quoteId}
         departureDate={departureDate}
         returnDate={returnDate}
         departureCarrier={departureCarrier}
@@ -70,6 +70,7 @@ FlightOffer.propTypes = {
   returnDate: PropTypes.string.isRequired,
   departureCarrier: PropTypes.string.isRequired,
   returnCarrier: PropTypes.string.isRequired,
+  quoteId: PropTypes.string.isRequired,
 };
 
 export default FlightOffer;

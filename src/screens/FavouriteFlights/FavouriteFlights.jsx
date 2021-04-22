@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  getItemFromLocalStorage,
-  saveItemInLocalStorage,
-} from 'utils/localStorage';
+import { deleteFavouriteOffer } from 'shared/store/favouriteConnections/actions';
 import Offer from 'shared/components/Offer/Offer';
 import DeleteButton from 'shared/components/DeleteButton/DeleteButton';
 
 import './styles.scss';
 
 function FavouriteFlights() {
-  const [quotes, setQuotes] = useState([]);
-  const [qutoeDelete, setQuoteDelete] = useState(0);
+  const [qutoeDelete, setQuoteDelete] = useState('');
 
-  useEffect(() => {
-    const quotes = getItemFromLocalStorage('quotes');
-    setQuotes(quotes);
-  }, []);
+  const dispatch = useDispatch();
 
-  function deleteOffer(price) {
-    setQuoteDelete(price);
-    const quoteDelete = quotes.filter((elem) => elem.price !== price);
-    const quotesWithoutDeletedQuote = quoteDelete.map((elem) => elem);
-    setQuotes(quotesWithoutDeletedQuote);
-    saveItemInLocalStorage('quotes', quotesWithoutDeletedQuote);
+  const quotes = useSelector((state) => state.favouriteConnections);
+
+  function deleteOffer(quoteId) {
+    setQuoteDelete(quoteId);
+    dispatch(deleteFavouriteOffer(quoteId));
   }
-  console.log(quotes);
+
   return (
     <div className="tracking-flights">
       {quotes.length ? (
@@ -34,6 +27,7 @@ function FavouriteFlights() {
             departurePlace,
             returnPlace,
             price,
+            quoteId,
             departureDate,
             returnDate,
             departureCarrier,
@@ -41,8 +35,8 @@ function FavouriteFlights() {
             direct,
           }) => (
             <div
-              className={qutoeDelete === price ? 'offer-delete' : ''}
-              key={price}
+              className={qutoeDelete === quoteId ? 'offer-delete' : ''}
+              key={quoteId}
             >
               <div className="tracking-flight__offer">
                 <Offer
@@ -55,7 +49,7 @@ function FavouriteFlights() {
                   returnCarrier={returnCarrier}
                   direct={direct}
                 />
-                <DeleteButton deleteOffer={deleteOffer} price={price} />
+                <DeleteButton deleteOffer={deleteOffer} quoteId={quoteId} />
               </div>
             </div>
           ),
