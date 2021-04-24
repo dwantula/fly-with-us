@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faPlane } from '@fortawesome/free-solid-svg-icons';
+
+import { addFavouriteOffer } from 'shared/store/favouriteConnections/actions';
+import Offer from '../Offer/Offer';
+import FavouriteButton from '../FavouriteButton/FavouriteButton';
 
 import './styles.scss';
 
@@ -9,83 +12,64 @@ function FlightOffer({
   departurePlace,
   returnPlace,
   price,
+  quoteId,
   departureDate,
   returnDate,
   departureCarrier,
   returnCarrier,
   direct,
 }) {
-  function watchFly() {
-    console.log('obserwuje');
+  const [active, setActive] = useState(false);
+  const dispatch = useDispatch();
+
+  const favouritesOffers = useSelector((state) => state.favouriteConnections);
+
+  const isAddedToFavourites = !!favouritesOffers.find(
+    (flight) =>
+      flight.departureCarrier === departureCarrier && flight.price === price,
+  );
+
+  function addToFavourite() {
+    setActive((prevState) => !prevState);
+    dispatch(
+      addFavouriteOffer(
+        departurePlace,
+        returnPlace,
+        price,
+        quoteId,
+        departureDate,
+        returnDate,
+        departureCarrier,
+        returnCarrier,
+        direct,
+      ),
+    );
   }
 
   return (
     <div className="offer">
-      <div>
-        <div className="offer__departure">
-          <div className="offer__carrier">
-            <p>{departureCarrier}</p>
-            <FontAwesomeIcon
-              icon={faPlane}
-              className="offer_icon-plane-depart"
-            />
-          </div>
-          <div className="offer__road">
-            <p>{departureDate.substr(5, 5)}</p>
-            <div className="offer__road-row">
-              <p>{departurePlace}</p>
-              <div className="offer__arrow green">
-                <p>
-                  ----------------
-                  <i className="arrow right" />
-                </p>
-              </div>
-              <p>{returnPlace}</p>
-            </div>
-          </div>
+      <Offer
+        departurePlace={departurePlace}
+        returnPlace={returnPlace}
+        price={price}
+        id={quoteId}
+        departureDate={departureDate}
+        returnDate={returnDate}
+        departureCarrier={departureCarrier}
+        returnCarrier={returnCarrier}
+        direct={direct}
+      />
+      {active || isAddedToFavourites ? (
+        <div className="offer__add_favourite">
+          <span>Added to favourites</span>
         </div>
-        <div className="offer__return">
-          <div className="offer__carrier">
-            <p>{returnCarrier}</p>
-            <FontAwesomeIcon
-              icon={faPlane}
-              className="offer_icon-plane-return"
-            />
-          </div>
-          <div>
-            <div className="offer__road">
-              <p>{returnDate.substr(5, 5)}</p>
-              <div className="offer__road-row">
-                <p>{returnPlace}</p>
-                <div className="offer__arrow">
-                  <p>
-                    ----------------
-                    <i className="arrow right" />
-                  </p>
-                </div>
-                <p>{departurePlace}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="offer__price">
-        <p>Price: {price}zł</p>
-      </div>
-      <div className="offers__select">
-        <p>Direct:{direct === false ? ' No' : ' Yes'}</p>
-        <div className="offers__icon-watch">
-          <span>Watch:</span>
-          <button
-            type="button"
-            onClick={watchFly}
-            className="offer__button-watch"
-          >
-            <FontAwesomeIcon className="offers__icon" icon={faStar} />
-          </button>
-        </div>
-      </div>
+      ) : (
+        <FavouriteButton
+          className="offer__icon"
+          addFavouriteButton={addToFavourite}
+          active={active}
+        />
+      )}
     </div>
   );
 }
@@ -99,6 +83,7 @@ FlightOffer.propTypes = {
   returnDate: PropTypes.string.isRequired,
   departureCarrier: PropTypes.string.isRequired,
   returnCarrier: PropTypes.string.isRequired,
+  quoteId: PropTypes.string.isRequired,
 };
 
 export default FlightOffer;

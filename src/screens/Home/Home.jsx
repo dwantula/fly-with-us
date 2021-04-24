@@ -75,10 +75,10 @@ function Home() {
   return (
     <div className="main">
       <div className="main__title">
-        <h1 className="main__title-text">Let the journey begin</h1>
+        <h1>Let the journey begin</h1>
       </div>
       <div className="main__search">
-        <div className="main__search-from">
+        <div>
           <span>From</span>
           <SearchInput
             items={originPlaces}
@@ -90,7 +90,7 @@ function Home() {
             removeItems={clearOriginPlaces}
           />
         </div>
-        <div className="main__search-from">
+        <div>
           <span>To</span>
           <SearchInput
             items={destinationPlaces}
@@ -102,7 +102,7 @@ function Home() {
             removeItems={clearDestinationPlaces}
           />
         </div>
-        <div className="main__search-from">
+        <div>
           <DateOfTravel
             setChosenDate={setDepartureDate}
             inputName="departureDate"
@@ -110,7 +110,7 @@ function Home() {
             min={todayDate}
           />
         </div>
-        <div className="main__search-from">
+        <div>
           <DateOfTravel
             setChosenDate={setDateOfReturn}
             inputName="dateOfReturn"

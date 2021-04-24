@@ -1,0 +1,19 @@
+@import 'shared/styles/colors.scss';
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  @media only screen and (max-width: 740px) {
+    flex-direction: column;
+  }
+}
+
+.offers__icon-trash {
+  display: flex;
+  font-size: 1.4rem;
+  &:hover {
+    color: $red;
+  }
+}

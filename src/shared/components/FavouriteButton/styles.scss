@@ -1,0 +1,28 @@
+@import 'shared/styles/colors.scss';
+
+.favourite-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+}
+
+.offer__button-watch {
+  background-color: $navy;
+  border: none;
+  outline: none;
+  color: $white;
+  &:hover {
+    color:$green; 
+  }
+}
+
+.offers__icon-active {
+  color: $gold;
+  font-size: 1.4rem;
+}
+
+.offers__icon {
+  display: flex;
+  font-size: 1.5rem;
+}
