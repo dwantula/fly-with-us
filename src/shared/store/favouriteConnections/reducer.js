@@ -32,7 +32,7 @@ function favourtieFlightsConnectionsReducer(state = initialState, action) {
         direct,
       };
       const theSamePrice = !!state.find((elem) => elem.quoteId === quoteId);
-      if (theSamePrice === false) {
+      if (!theSamePrice) {
         const newQuotes = [...state, newQuote];
         saveItemInLocalStorage('quotes', newQuotes);
         return newQuotes;
@@ -40,10 +40,9 @@ function favourtieFlightsConnectionsReducer(state = initialState, action) {
       return state;
     }
     case DELETE_FAVOURITE_QUOTE: {
-      const quoteDelete = state.filter(
+      const quotesWithoutDeletedQuote = state.filter(
         (elem) => elem.quoteId !== action.payload.quoteId,
       );
-      const quotesWithoutDeletedQuote = quoteDelete.map((elem) => elem);
       saveItemInLocalStorage('quotes', quotesWithoutDeletedQuote);
       return quotesWithoutDeletedQuote;
     }

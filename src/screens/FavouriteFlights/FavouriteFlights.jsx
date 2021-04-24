@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteFavouriteOffer } from 'shared/store/favouriteConnections/actions';
@@ -8,14 +8,11 @@ import DeleteButton from 'shared/components/DeleteButton/DeleteButton';
 import './styles.scss';
 
 function FavouriteFlights() {
-  const [qutoeDelete, setQuoteDelete] = useState('');
-
   const dispatch = useDispatch();
 
   const quotes = useSelector((state) => state.favouriteConnections);
 
   function deleteOffer(quoteId) {
-    setQuoteDelete(quoteId);
     dispatch(deleteFavouriteOffer(quoteId));
   }
 
@@ -34,10 +31,7 @@ function FavouriteFlights() {
             returnCarrier,
             direct,
           }) => (
-            <div
-              className={qutoeDelete === quoteId ? 'offer-delete' : ''}
-              key={quoteId}
-            >
+            <div key={quoteId}>
               <div className="tracking-flight__offer">
                 <Offer
                   departurePlace={departurePlace}
@@ -62,4 +56,5 @@ function FavouriteFlights() {
     </div>
   );
 }
+
 export default FavouriteFlights;

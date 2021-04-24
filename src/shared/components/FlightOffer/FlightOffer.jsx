@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addFavouriteOffer } from 'shared/store/favouriteConnections/actions';
@@ -21,6 +21,13 @@ function FlightOffer({
 }) {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+
+  const favouritesOffers = useSelector((state) => state.favouriteConnections);
+
+  const isAddedToFavourites = !!favouritesOffers.find(
+    (flight) =>
+      flight.departureCarrier === departureCarrier && flight.price === price,
+  );
 
   function addToFavourite() {
     setActive((prevState) => !prevState);
@@ -52,11 +59,17 @@ function FlightOffer({
         returnCarrier={returnCarrier}
         direct={direct}
       />
-      <FavouriteButton
-        className="offer__icon"
-        addFavouriteButton={addToFavourite}
-        active={active}
-      />
+      {active || isAddedToFavourites ? (
+        <div className="offer__add_favourite">
+          <span>Added to favourites</span>
+        </div>
+      ) : (
+        <FavouriteButton
+          className="offer__icon"
+          addFavouriteButton={addToFavourite}
+          active={active}
+        />
+      )}
     </div>
   );
 }
